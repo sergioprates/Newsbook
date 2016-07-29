@@ -19,7 +19,6 @@ namespace Newsbook.Core.Servico
 
         public virtual long Salvar(TEntity obj)
         {
-
             return _repositorio.Inserir(obj);
         }
 
