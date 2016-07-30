@@ -8,7 +8,7 @@ namespace Newsbook.Core.Modelo
 {
     public abstract class ModeloBase
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         public DateTime DataCadastro { get; set; }
 

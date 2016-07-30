@@ -22,6 +22,8 @@ namespace Newsbook.Core.Modelo
 
         public string Link { get; set; }
 
+        public DateTime DataPublicacao { get; set; }
+
         public List<CategoriaDaNoticia> Categorias { get; set; }
     }
 }

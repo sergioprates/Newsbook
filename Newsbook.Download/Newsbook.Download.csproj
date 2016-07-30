@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\Newsbook.Infraestrutura.Dados.MySql\Newsbook.Infraestrutura.Dados.MySql.csproj">
       <Project>{056e24e2-604c-4834-bb49-0a36080cfc55}</Project>
       <Name>Newsbook.Infraestrutura.Dados.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newsbook.Util\Newsbook.Util.csproj">
+      <Project>{a651bbc4-906d-4a4b-97fc-d327946fb87e}</Project>
+      <Name>Newsbook.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
