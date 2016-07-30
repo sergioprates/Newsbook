@@ -30,9 +30,5 @@ namespace Newsbook.Core.Modelo
         public FeedUrl FeedUrl { get; set; }
         public long FeedUrlId { get; set; }
 
-        static NoticiaDoFeedUrl CriarNoticiaDoFeedUrl(SyndicationItem item, FeedUrl feed)
-        {
-
-        }
     }
 }

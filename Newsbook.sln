@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newsbook.Download", "Newsbo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newsbook.Util", "Newsbook.Util\Newsbook.Util.csproj", "{A651BBC4-906D-4A4B-97FC-D327946FB87E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newsbook.Core.Testes", "Newsbook.Core.Testes\Newsbook.Core.Testes.csproj", "{5B72CB09-9CB2-4821-8056-A041C3E52735}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{A651BBC4-906D-4A4B-97FC-D327946FB87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A651BBC4-906D-4A4B-97FC-D327946FB87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A651BBC4-906D-4A4B-97FC-D327946FB87E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B72CB09-9CB2-4821-8056-A041C3E52735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B72CB09-9CB2-4821-8056-A041C3E52735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B72CB09-9CB2-4821-8056-A041C3E52735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B72CB09-9CB2-4821-8056-A041C3E52735}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,5 +106,6 @@ Global
 		{056E24E2-604C-4834-BB49-0A36080CFC55} = {A0A24D28-5970-42F7-8847-B71E7622F515}
 		{376EE048-E5CF-4F7F-B129-1D5C1454CA39} = {80E49700-8CD0-4418-9F48-4F4ABE86CA11}
 		{A651BBC4-906D-4A4B-97FC-D327946FB87E} = {A29F7D56-D1CF-4D93-BF03-B7ABB0474811}
+		{5B72CB09-9CB2-4821-8056-A041C3E52735} = {A7F98BB9-20E9-487F-AE0D-056B0431C808}
 	EndGlobalSection
 EndGlobal
