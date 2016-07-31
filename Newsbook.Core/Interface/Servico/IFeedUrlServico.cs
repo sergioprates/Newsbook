@@ -9,5 +9,6 @@ namespace Newsbook.Core.Interface.Servico
 {
     public interface IFeedUrlServico : IServicoBase<FeedUrl>
     {
+        List<FeedUrl> ListarAtivos();
     }
 }

@@ -1,42 +1,56 @@
 ﻿using Newsbook.Core.Interface.Repositorio;
+using Newsbook.Infraestrutura.Dados.MYSQL.Contexto;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Newsbook.Infraestrutura.Dados.MySql.Repositorio
+namespace Newsbook.Infraestrutura.Dados.MYSQL.Repositorio
 {
     public class RepositorioBase<TEntity> : IRepositorioBase<TEntity> where TEntity :class
     {
-        public long Inserir(TEntity obj)
+        protected readonly ContextoDb _repositorio;
+        protected readonly string strConexao = ConfigurationManager.ConnectionStrings["Newsbook.Core"].ToString();
+        public RepositorioBase()
         {
-            throw new NotImplementedException();
+            _repositorio = new ContextoDb();
         }
 
-        public TEntity BuscarPorId(long id)
+        public virtual TEntity Inserir(TEntity obj)
         {
-            throw new NotImplementedException();
+            obj = _repositorio.Set<TEntity>().Add(obj);
+            _repositorio.commit();
+            return obj;
         }
 
-        public List<TEntity> Listar()
+        public virtual TEntity BuscarPorId(long id)
         {
-            throw new NotImplementedException();
+            return _repositorio.Set<TEntity>().Find(id);
         }
 
-        public void Alterar(TEntity obj)
+        public virtual List<TEntity> Listar()
         {
-            throw new NotImplementedException();
+            return _repositorio.Set<TEntity>().ToList();
         }
 
-        public void Deletar(TEntity obj)
+        public virtual void Alterar(TEntity obj)
         {
-            throw new NotImplementedException();
+            _repositorio.Entry(obj).State = EntityState.Modified;
+            _repositorio.commit();
         }
 
-        public void Dispose()
+        public virtual void Deletar(TEntity obj)
         {
-            throw new NotImplementedException();
+            _repositorio.Set<TEntity>().Remove(obj);
+            _repositorio.commit();
+        }
+
+        public virtual void Dispose()
+        {
+            _repositorio.Dispose();
         }
     }
 }

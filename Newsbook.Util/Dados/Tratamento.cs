@@ -33,7 +33,7 @@ namespace Newsbook.Util.Dados
             noticia.Descricao = descricao;
             noticia.Link = link;
             noticia.UrlFoto = imagem;
-            noticia.DataPublicacao = Convert.ToDateTime(item.PublishDate);
+            noticia.DataPublicacao = item.PublishDate.DateTime;
 
             if (item.Categories != null)
             {

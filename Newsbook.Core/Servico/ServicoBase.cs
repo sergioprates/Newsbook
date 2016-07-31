@@ -3,6 +3,7 @@ using Newsbook.Core.Interface.Servico;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,12 +20,24 @@ namespace Newsbook.Core.Servico
 
         public virtual long Salvar(TEntity obj)
         {
-            return _repositorio.Inserir(obj);
+            var id = obj.GetType().GetRuntimeProperties().ToList().FirstOrDefault(x=> x.Name == "Id");
+            if (id != null && Convert.ToInt64(id.GetValue(obj)) != 0)
+            {
+                _repositorio.Alterar(obj);
+            }
+            else
+            {
+                obj = _repositorio.Inserir(obj);
+                id = obj.GetType().GetRuntimeProperties().ToList().FirstOrDefault(x => x.Name == "Id");
+                return Convert.ToInt64(id.GetValue(obj));
+            }
+            
+            return Convert.ToInt64(id.GetValue(obj));
         }
 
-        public virtual long Inserir(TEntity obj)
+        public virtual TEntity Inserir(TEntity obj)
         {
-            return _repositorio.Inserir(obj);
+           return _repositorio.Inserir(obj);
         }
 
         public TEntity BuscarPorId(long id)

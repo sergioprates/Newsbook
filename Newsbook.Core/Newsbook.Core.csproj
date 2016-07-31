@@ -37,9 +37,17 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\Repositorio\ICategoriaDaNoticiaRepositorio.cs" />
+    <Compile Include="Interface\Repositorio\ICategoriaRepositorio.cs" />
     <Compile Include="Interface\Repositorio\IFeedUrlRepositorio.cs" />
+    <Compile Include="Interface\Repositorio\INoticiaDoFeedUrlRepositorio.cs" />
+    <Compile Include="Interface\Repositorio\INoticiaRepositorio.cs" />
     <Compile Include="Interface\Repositorio\IRepositorioBase.cs" />
+    <Compile Include="Interface\Servico\ICategoriaDaNoticiaServico.cs" />
+    <Compile Include="Interface\Servico\ICategoriaServico.cs" />
     <Compile Include="Interface\Servico\IFeedUrlServico.cs" />
+    <Compile Include="Interface\Servico\INoticiaDoFeedUrlServico.cs" />
+    <Compile Include="Interface\Servico\INoticiaServico.cs" />
     <Compile Include="Interface\Servico\IServicoBase.cs" />
     <Compile Include="Modelo\Categoria.cs" />
     <Compile Include="Modelo\CategoriaDaNoticia.cs" />
@@ -48,6 +56,11 @@
     <Compile Include="Modelo\Noticia.cs" />
     <Compile Include="Modelo\NoticiaDoFeedUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servico\CategoriaDaNoticiaServico.cs" />
+    <Compile Include="Servico\CategoriaServico.cs" />
+    <Compile Include="Servico\FeedUrlServico.cs" />
+    <Compile Include="Servico\NoticiaDoFeedUrlServico.cs" />
+    <Compile Include="Servico\NoticiaServico.cs" />
     <Compile Include="Servico\ServicoBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

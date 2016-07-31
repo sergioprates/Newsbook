@@ -9,5 +9,10 @@ namespace Newsbook.Core.Modelo
     public class Categoria : ModeloBase
     {
         public string Nome { get; set; }
+
+        public static string NomeTabela
+        {
+            get { return "tb_categoria"; }
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Newsbook.Core.Interface.Repositorio
 {
     public interface IFeedUrlRepositorio : IRepositorioBase<FeedUrl>
     {
+        List<FeedUrl> ListarAtivos();
     }
 }

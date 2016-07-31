@@ -10,7 +10,7 @@ namespace Newsbook.Core.Interface.Servico
     {
         long Salvar(TEntity obj);
 
-        long Inserir(TEntity obj);
+        TEntity Inserir(TEntity obj);
         TEntity BuscarPorId(long id);
         List<TEntity> Listar();
         

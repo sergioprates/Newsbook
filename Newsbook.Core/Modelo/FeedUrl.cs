@@ -15,5 +15,10 @@ namespace Newsbook.Core.Modelo
         public string Url { get; set; }
 
         public List<NoticiaDoFeedUrl> Noticias { get; set; }
+
+        public static string NomeTabela
+        {
+            get { return "tb_feedurl"; }
+        }
     }
 }

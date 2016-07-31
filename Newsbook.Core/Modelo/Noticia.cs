@@ -25,5 +25,10 @@ namespace Newsbook.Core.Modelo
         public DateTime DataPublicacao { get; set; }
 
         public List<CategoriaDaNoticia> Categorias { get; set; }
+
+        public static string NomeTabela
+        {
+            get { return "tb_noticia"; }
+        }
     }
 }

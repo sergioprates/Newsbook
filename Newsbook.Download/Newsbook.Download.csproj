@@ -36,6 +36,10 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.2.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.0\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -58,9 +62,13 @@
       <Project>{77db442d-d3d0-449c-a7a1-22a47f716357}</Project>
       <Name>Newsbook.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Newsbook.Infraestrutura.Dados.MySql\Newsbook.Infraestrutura.Dados.MySql.csproj">
+    <ProjectReference Include="..\Newsbook.Dependencias\Newsbook.Dependencias.csproj">
+      <Project>{650ab8a8-0a08-49c3-8b6e-08ea97133a5b}</Project>
+      <Name>Newsbook.Dependencias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newsbook.Infraestrutura.Dados.MySql\Newsbook.Infraestrutura.Dados.MYSQL.csproj">
       <Project>{056e24e2-604c-4834-bb49-0a36080cfc55}</Project>
-      <Name>Newsbook.Infraestrutura.Dados.MySql</Name>
+      <Name>Newsbook.Infraestrutura.Dados.MYSQL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Newsbook.Util\Newsbook.Util.csproj">
       <Project>{a651bbc4-906d-4a4b-97fc-d327946fb87e}</Project>
