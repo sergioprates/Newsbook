@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newsbook.Core.Modelo;
 using Newsbook.Core.WebApi.ResourceModel.FeedUrl;
+using Newsbook.Core.WebApi.ResourceModel.Noticia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Newsbook.Core.WebApi.AutoMapper
         protected override void Configure()
         {
             Mapper.CreateMap<GetFeedUrl, FeedUrl>();
+            Mapper.CreateMap<GetNoticia, Noticia>();
           
         }
     }

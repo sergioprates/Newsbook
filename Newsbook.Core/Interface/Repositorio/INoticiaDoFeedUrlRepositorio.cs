@@ -9,5 +9,6 @@ namespace Newsbook.Core.Interface.Repositorio
 {
     public interface INoticiaDoFeedUrlRepositorio : IRepositorioBase<NoticiaDoFeedUrl>
     {
+        List<NoticiaDoFeedUrl> Listar(FeedUrl feedUrl);
     }
 }

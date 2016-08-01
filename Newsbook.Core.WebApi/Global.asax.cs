@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using System.Web.Http;
 using System.Web.Routing;
 
@@ -18,16 +19,7 @@ namespace Newsbook.Core.WebApi
     {
         protected void Application_Start()
         {
-            var container = RegistradorDependencias.GetContainer(new WebRequestLifestyle());
-            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
-
-            Registration registration = container.GetRegistration(typeof(FeedUrlController)).Registration;
-
-            registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Teste");
-
-            container.Verify();
-
-            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+           
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
 

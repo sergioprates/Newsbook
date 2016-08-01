@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Newsbook.Core.Interface.Servico;
 using Newsbook.Core.Modelo;
-using Newsbook.Core.WebApi.ResourceModel.FeedUrl;
-using Newsbook.Core.WebApi.Validator;
+using Newsbook.Core.WebApi.ResourceModel.Noticia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,28 +12,27 @@ using System.Web.Http;
 
 namespace Newsbook.Core.WebApi.Controllers
 {
-    public class FeedUrlController : ApiController
+    public class NoticiaController : ApiController
     {
+        private readonly INoticiaServico _servico;
 
-        private readonly IFeedUrlServico _servico;
-
-        public FeedUrlController(IFeedUrlServico servico)
+        public NoticiaController(INoticiaServico servico)
         {
             _servico = servico;
         }
 
         [HttpGet]
-        [Route("api/feedurl")]
-       [Authorize]
+        [Route("api/noticia")]
+        [Authorize]
         public Task<HttpResponseMessage> Get()
         {
             HttpResponseMessage response;
 
             try
             {
-                var itens = _servico.ListarAtivos();
+                var itens = _servico.Listar();
 
-                var itensResourceModel = Mapper.Map<List<FeedUrl>, IEnumerable<GetFeedUrl>>(itens);
+                var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
                 {
                     d = itensResourceModel
@@ -50,30 +48,6 @@ namespace Newsbook.Core.WebApi.Controllers
             return tsc.Task;
         }
 
-
-        // GET: api/FeedUrl/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/FeedUrl
-        [HttpPost]
-        [ValidateModelStateFilter]
-        [Route("api/feedurl")]
-        public string Post(PostFeedUrl obj)
-        {
-            return "ok";
-        }
-
-        // PUT: api/FeedUrl/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/FeedUrl/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

@@ -19,7 +19,9 @@ namespace Newsbook.Core.WebApi.Validator
 
             // Verificando se está sendo chamado o swagger, 
             // caso esteja a validação da requisição não é feita para retornar a variável errors[]
-            if (request.RequestUri.ToString().ToUpper().IndexOf("SWAGGER", StringComparison.InvariantCultureIgnoreCase) == -1)
+            if (request.RequestUri.ToString().ToUpper().IndexOf("SWAGGER", StringComparison.InvariantCultureIgnoreCase) == -1 
+                && response.StatusCode != System.Net.HttpStatusCode.InternalServerError
+                && response.StatusCode != System.Net.HttpStatusCode.Unauthorized)
             {
                 return BuildApiResponse(request, response);
             }

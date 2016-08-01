@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Newsbook.Core.Interface.Servico;
 using Newsbook.Core.Modelo;
-using Newsbook.Core.WebApi.ResourceModel.FeedUrl;
-using Newsbook.Core.WebApi.Validator;
+using Newsbook.Core.WebApi.ResourceModel.Noticia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,28 +12,29 @@ using System.Web.Http;
 
 namespace Newsbook.Core.WebApi.Controllers
 {
-    public class FeedUrlController : ApiController
+    public class NoticiaDoFeedUrlController : ApiController
     {
+        private readonly INoticiaDoFeedUrlServico _servico;
 
-        private readonly IFeedUrlServico _servico;
-
-        public FeedUrlController(IFeedUrlServico servico)
+        public NoticiaDoFeedUrlController(INoticiaDoFeedUrlServico servico)
         {
             _servico = servico;
         }
 
+        // GET: api/NoticiaDoFeedUrl
         [HttpGet]
-        [Route("api/feedurl")]
-       [Authorize]
-        public Task<HttpResponseMessage> Get()
+        [Authorize]
+        [Route("api/noticiadofeedurl/{id}")]
+        public Task<HttpResponseMessage> Get(long id)
         {
             HttpResponseMessage response;
 
             try
-            {
-                var itens = _servico.ListarAtivos();
+            {  
+                FeedUrl feed = new FeedUrl(){Id = id};
+                var itens = _servico.Listar(feed).Select(x=> x.Noticia).ToList();
 
-                var itensResourceModel = Mapper.Map<List<FeedUrl>, IEnumerable<GetFeedUrl>>(itens);
+                var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
                 {
                     d = itensResourceModel
@@ -50,28 +50,23 @@ namespace Newsbook.Core.WebApi.Controllers
             return tsc.Task;
         }
 
-
-        // GET: api/FeedUrl/5
+        // GET: api/NoticiaDoFeedUrl/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/FeedUrl
-        [HttpPost]
-        [ValidateModelStateFilter]
-        [Route("api/feedurl")]
-        public string Post(PostFeedUrl obj)
+        // POST: api/NoticiaDoFeedUrl
+        public void Post([FromBody]string value)
         {
-            return "ok";
         }
 
-        // PUT: api/FeedUrl/5
+        // PUT: api/NoticiaDoFeedUrl/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/FeedUrl/5
+        // DELETE: api/NoticiaDoFeedUrl/5
         public void Delete(int id)
         {
         }

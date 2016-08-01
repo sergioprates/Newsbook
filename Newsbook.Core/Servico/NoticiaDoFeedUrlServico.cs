@@ -37,6 +37,7 @@ namespace Newsbook.Core.Servico
             {
                 noticiaDoFeed.FeedUrlId = noticiaDoFeed.FeedUrl.Id;
                 //Verificar se a noticia já existe para o feed atual através do link.
+                noticiaDoFeed.Ativo = true;
                 noticiaDoFeed.Noticia.Id = _servicoNoticia.Salvar(noticiaDoFeed.Noticia);
                 noticiaDoFeed.NoticiaId = noticiaDoFeed.Noticia.Id;
 
@@ -57,10 +58,16 @@ namespace Newsbook.Core.Servico
                     }
 
                     noticiaDoFeed.Noticia.Categorias[i].NoticiaId = noticiaDoFeed.NoticiaId;
-
+                    noticiaDoFeed.Noticia.Categorias[i].Ativo = true;
                   noticiaDoFeed.Noticia.Categorias[i].Id =  _servicoCategoriaDaNoticia.Salvar(noticiaDoFeed.Noticia.Categorias[i]);
                 }
             }
+        }
+
+
+        public List<NoticiaDoFeedUrl> Listar(FeedUrl feedUrl)
+        {
+            return _repositorioContexto.Listar(feedUrl);
         }
     }
 }
