@@ -9,5 +9,8 @@ namespace Newsbook.Core.Interface.Servico
 {
     public interface INoticiaServico : IServicoBase<Noticia>
     {
+        Noticia Buscar(string url);
+
+        List<Noticia> Listar(DateTime data);
     }
 }

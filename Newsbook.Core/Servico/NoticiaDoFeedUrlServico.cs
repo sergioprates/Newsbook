@@ -38,28 +38,34 @@ namespace Newsbook.Core.Servico
                 noticiaDoFeed.FeedUrlId = noticiaDoFeed.FeedUrl.Id;
                 //Verificar se a noticia já existe para o feed atual através do link.
                 noticiaDoFeed.Ativo = true;
-                noticiaDoFeed.Noticia.Id = _servicoNoticia.Salvar(noticiaDoFeed.Noticia);
-                noticiaDoFeed.NoticiaId = noticiaDoFeed.Noticia.Id;
 
-                noticiaDoFeed.Id = Salvar(noticiaDoFeed);
+                Noticia noticiaAux = _servicoNoticia.Buscar(noticiaDoFeed.Noticia.Link);
 
-                //Salvando categorias
-
-                for (int i = 0; i < noticiaDoFeed.Noticia.Categorias.Count; i++)
+                if (noticiaAux == null)
                 {
-                    var c = _servicoCategoria.BuscarPorNome(noticiaDoFeed.Noticia.Categorias[i].Categoria.Nome);
-                    if (c != null)
+                    noticiaDoFeed.Noticia.Id = _servicoNoticia.Salvar(noticiaDoFeed.Noticia);
+
+                    for (int i = 0; i < noticiaDoFeed.Noticia.Categorias.Count; i++)
                     {
-                        noticiaDoFeed.Noticia.Categorias[i].CategoriaId = c.Id;
-                    }
-                    else
-                    {
-                        noticiaDoFeed.Noticia.Categorias[i].CategoriaId = _servicoCategoria.Salvar(noticiaDoFeed.Noticia.Categorias[i].Categoria);
+                        var c = _servicoCategoria.BuscarPorNome(noticiaDoFeed.Noticia.Categorias[i].Categoria.Nome);
+                        if (c != null)
+                        {
+                            noticiaDoFeed.Noticia.Categorias[i].CategoriaId = c.Id;
+                        }
+                        else
+                        {
+                            noticiaDoFeed.Noticia.Categorias[i].CategoriaId = _servicoCategoria.Salvar(noticiaDoFeed.Noticia.Categorias[i].Categoria);
+                        }
+
+                        noticiaDoFeed.Noticia.Categorias[i].NoticiaId = noticiaDoFeed.NoticiaId;
+                        noticiaDoFeed.Noticia.Categorias[i].Ativo = true;
+                        noticiaDoFeed.Noticia.Categorias[i].Id = _servicoCategoriaDaNoticia.Salvar(noticiaDoFeed.Noticia.Categorias[i]);
+                    
                     }
 
-                    noticiaDoFeed.Noticia.Categorias[i].NoticiaId = noticiaDoFeed.NoticiaId;
-                    noticiaDoFeed.Noticia.Categorias[i].Ativo = true;
-                  noticiaDoFeed.Noticia.Categorias[i].Id =  _servicoCategoriaDaNoticia.Salvar(noticiaDoFeed.Noticia.Categorias[i]);
+                    noticiaDoFeed.NoticiaId = noticiaDoFeed.Noticia.Id;
+
+                    noticiaDoFeed.Id = Salvar(noticiaDoFeed);
                 }
             }
         }
@@ -68,6 +74,12 @@ namespace Newsbook.Core.Servico
         public List<NoticiaDoFeedUrl> Listar(FeedUrl feedUrl)
         {
             return _repositorioContexto.Listar(feedUrl);
+        }
+
+
+        public List<NoticiaDoFeedUrl> Listar(DateTime data)
+        {
+            return _repositorioContexto.Listar(data);
         }
     }
 }

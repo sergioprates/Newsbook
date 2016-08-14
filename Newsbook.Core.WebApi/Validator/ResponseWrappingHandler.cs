@@ -20,8 +20,7 @@ namespace Newsbook.Core.WebApi.Validator
             // Verificando se está sendo chamado o swagger, 
             // caso esteja a validação da requisição não é feita para retornar a variável errors[]
             if (request.RequestUri.ToString().ToUpper().IndexOf("SWAGGER", StringComparison.InvariantCultureIgnoreCase) == -1 
-                && response.StatusCode != System.Net.HttpStatusCode.InternalServerError
-                && response.StatusCode != System.Net.HttpStatusCode.Unauthorized)
+                && response.StatusCode != System.Net.HttpStatusCode.InternalServerError)
             {
                 return BuildApiResponse(request, response);
             }
@@ -66,6 +65,18 @@ namespace Newsbook.Core.WebApi.Validator
                         }
                     }
                 }
+            }
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                content = "ERRO";
+                modelStateErrors.Add("Usuário ou senha estão incorretos.");
+            }
+
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                modelStateErrors.Add((string)content);
+                content = "ERRO";
             }
 
             //Step 5: Create a new response

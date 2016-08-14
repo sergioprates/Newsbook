@@ -9,5 +9,8 @@ namespace Newsbook.Core.Interface.Repositorio
 {
     public interface INoticiaRepositorio : IRepositorioBase<Noticia>
     {
+        Noticia Buscar(string url);
+
+        List<Noticia> Listar(DateTime data);
     }
 }

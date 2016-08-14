@@ -30,7 +30,7 @@ namespace Newsbook.Core.WebApi.Controllers
 
             try
             {
-                var itens = _servico.Listar();
+                var itens = _servico.Listar().OrderByDescending(x => x.DataPublicacao).ToList();
 
                 var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
@@ -48,6 +48,31 @@ namespace Newsbook.Core.WebApi.Controllers
             return tsc.Task;
         }
 
-       
+        [HttpGet]
+        [Route("api/noticia/hoje")]
+        [Authorize]
+        public Task<HttpResponseMessage> GetOfToday()
+        {
+            HttpResponseMessage response;
+
+            try
+            {
+                var itens = _servico.Listar(DateTime.Now).OrderByDescending(x=> x.DataPublicacao).ToList();
+
+                var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
+                response = Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    d = itensResourceModel
+                });
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
+            var tsc = new TaskCompletionSource<HttpResponseMessage>();
+            tsc.SetResult(response);
+            return tsc.Task;
+        }
     }
 }

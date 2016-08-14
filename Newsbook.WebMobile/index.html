@@ -24,13 +24,14 @@
                             <i class="fa fa-bars icon"></i>
                         </button>
                         <ol class="breadcrumb navbar-breadcrumb">
-                            <li class="active">Dashboard</li>
+                            <li class="active">Noticias</li>
                         </ol>
                         <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                             <i class="fa fa-th icon"></i>
                         </button>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
+                    <!--Será adicionado em futuras versões-->
+                    <ul class="nav navbar-nav navbar-right" style="display:none">
                         <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                             <i class="fa fa-times icon"></i>
                         </button>
@@ -96,6 +97,7 @@
                             </ul>
                         </li>
                     </ul>
+                    <!--/Será adicionado em futuras versões-->
                 </div>
             </nav>
             <div class="side-menu sidebar-inverse">
@@ -112,7 +114,7 @@
                         </div>
                         <ul class="nav navbar-nav">
                             <li v-for="feed in ListaFeedUrl">
-                                <a href="#" v-on:click="listarNoticiaPorFeedUrl{{feed.Id}}">
+                                <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id)" onclick="ativarMenuItem(this)">
                                     <span class="icon fa fa-folder"></span><span class="title">{{feed.Titulo}}</span>
                                 </a>
                             </li>
@@ -131,11 +133,12 @@
                             <div id="listaNoticia" class="row">
                                 <div class="col-md-6 col-sm-12" v-for="noticia in ListaNoticia">
                                     <div class="thumbnail no-margin-bottom">
-                                        <img src="{{noticia.UrlFoto}}" class="img-responsive" style="width: 100%">
+                                        <img v-bind:src="noticia.UrlFoto" class="img-responsive" style="width: 100%">
                                         <div class="caption">
                                             <h3 id="thumbnail-label">{{noticia.Titulo}}<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
                                             <p style="height:50px;">{{noticia.Descricao.substring(0, 150) }}</p>
-                                            <p><a target="_blank" href="{{noticia.Link}}" class="btn btn-primary" role="button">Ler mais</a> </p>
+                                            <p>Data de publicação: {{noticia.strDataPublicacao }}</p>
+                                            <p><a target="_blank" v-bind:href="noticia.Link" class="btn btn-primary" role="button">Ler mais</a> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -144,10 +147,29 @@
                     </div>
                 </div>
             </div>
+            <!-- /pagina principal -->
+
+
+            <!-- Modal Aguarde -->
+            <div class="modal bs-example-modal-sm" id="modalAguarde" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Aguarde</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin: 0 auto;">
+                                <img src="img/loading.gif" style="width: 100px; height: 100px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Modal Aguarde -->
         </div>
         <footer class="app-footer">
             <div class="wrapper">
-                <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright.
+                <span class="pull-right">1.0 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2016 Copyright Newsbook
             </div>
         </footer>
         <div>
@@ -169,7 +191,9 @@
             <script src="scripts/urlapis.js"></script>
             <script type="text/javascript" src="js/app.js"></script>
             <script type="text/javascript" src="js/index.js"></script>
+            <script src="js/newsbook.js"></script>
             <script src="scripts/index.js"></script>
+           
 </body>
 </html>
 

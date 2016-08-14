@@ -24,14 +24,14 @@ namespace Newsbook.Core.WebApi
 
             ConfigureOAuth(app);
 
-            var container = RegistradorDependencias.GetContainer(new WebRequestLifestyle());
+            var container = RegistradorDependencias.GetContainer(new WebRequestLifestyle(true));
             container.RegisterWebApiControllers(config);
 
             Registration registration = container.GetRegistration(typeof(FeedUrlController)).Registration;
 
             registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Teste");
 
-            container.Verify();
+            //container.Verify();
 
             config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
 

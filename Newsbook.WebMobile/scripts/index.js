@@ -28,48 +28,59 @@ new Vue({
                 this.$set('ListaFeedUrl', resposta.Result.d);
             }, function (error)  {
                 // error callback
-                console.log(error);
+                mostrarErro(error);
             });
 
         },
         listarNoticia: function () {
-            this.$http.get(_urlapi + 'noticia', { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
+            this.$http.get(_urlapi + 'noticia/hoje', { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
                 // success callback
                 var resposta = JSON.parse(res.body);
 
                 this.$set('ListaNoticia', resposta.Result.d);
+                ocultarAguarde();
             }, function (error) {
                 // error callback
-                console.log(error);
+                mostrarErro(error);
             });
         },
-        listarNoticiaPorFeedUrl: function(id){
-            this.$http.get(_urlapi + 'noticia/noticiadofeedurl/' + id, { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
+        listarNoticiaPorFeedUrl: function (id) {
+            mostrarAguarde();
+            this.$http.get(_urlapi + 'noticiadofeedurl/hoje/' + id, { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
                 // success callback
                 var resposta = JSON.parse(res.body);
 
                 this.$set('ListaNoticia', resposta.Result.d);
+                ocultarAguarde();
             }, function (error) {
                 // error callback
-                console.log(error);
+                mostrarErro(error);
             });
 
             return false;
         },
         buscarToken: function () {
-            var data = 'grant_type=password&username=Newsbook&password=Newsbook';
-            this.$http.post(_urltoken, data, { headers: { 'Content-Type': 'Application/x-www-form-urlencoded' } }).then(function (res) {
-                // success callback
-                var resposta = JSON.parse(res.body);
+            mostrarAguarde();
+            if (this.Token == '') {
+                this.$http.post(_urltoken, autenticacao, { headers: { 'Content-Type': 'Application/x-www-form-urlencoded' } }).then(function (res) {
+                    // success callback
+                    var resposta = JSON.parse(res.body);
 
-                //this.$set('ListaFeedUrl', resposta.Result.d);
-                this.$set('Token', resposta.access_token);
+                    //this.$set('ListaFeedUrl', resposta.Result.d);
+                    this.$set('Token', resposta.access_token);
+                    this.listarFeedUrlAtivo();
+                    this.listarNoticia();
+                }, function (error) {
+                    // error callback
+                    mostrarErro(error);
+                });
+            }
+            else
+            {
                 this.listarFeedUrlAtivo();
                 this.listarNoticia();
-            }, function (error) {
-                // error callback
-                console.log(error);
-            });
+            }
+            
         }
     }
 });

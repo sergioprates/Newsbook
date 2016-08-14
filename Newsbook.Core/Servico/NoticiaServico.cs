@@ -18,5 +18,15 @@ namespace Newsbook.Core.Servico
         {
             _repositorioContexto = repositorio;
         }
+
+         public Noticia Buscar(string url)
+         {
+             return _repositorioContexto.Buscar(url);
+         }
+
+         public List<Noticia> Listar(DateTime data)
+         {
+             return _repositorioContexto.Listar(data);
+         }
     }
 }

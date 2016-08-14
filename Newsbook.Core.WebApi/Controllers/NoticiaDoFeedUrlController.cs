@@ -32,7 +32,7 @@ namespace Newsbook.Core.WebApi.Controllers
             try
             {  
                 FeedUrl feed = new FeedUrl(){Id = id};
-                var itens = _servico.Listar(feed).Select(x=> x.Noticia).ToList();
+                var itens = _servico.Listar(feed).Select(x => x.Noticia).OrderByDescending(x => x.DataPublicacao).ToList();
 
                 var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
@@ -50,25 +50,31 @@ namespace Newsbook.Core.WebApi.Controllers
             return tsc.Task;
         }
 
-        // GET: api/NoticiaDoFeedUrl/5
-        public string Get(int id)
+        [HttpGet]
+        [Route("api/noticiadofeedurl/hoje/{id}")]
+        [Authorize]
+        public Task<HttpResponseMessage> GetOfToday(long id)
         {
-            return "value";
-        }
+            HttpResponseMessage response;
 
-        // POST: api/NoticiaDoFeedUrl
-        public void Post([FromBody]string value)
-        {
-        }
+            try
+            {
+                var itens = _servico.Listar(DateTime.Now).OrderByDescending(x => x.Noticia.DataPublicacao).Select(x=> x.Noticia).ToList();
 
-        // PUT: api/NoticiaDoFeedUrl/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+                var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
+                response = Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    d = itensResourceModel
+                });
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
 
-        // DELETE: api/NoticiaDoFeedUrl/5
-        public void Delete(int id)
-        {
+            var tsc = new TaskCompletionSource<HttpResponseMessage>();
+            tsc.SetResult(response);
+            return tsc.Task;
         }
     }
 }

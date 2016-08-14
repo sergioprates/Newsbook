@@ -12,5 +12,7 @@ namespace Newsbook.Core.Interface.Servico
         void Armazenar(NoticiaDoFeedUrl noticiaDoFeed);
 
         List<NoticiaDoFeedUrl> Listar(FeedUrl feedUrl);
+
+        List<NoticiaDoFeedUrl> Listar(DateTime data);
     }
 }

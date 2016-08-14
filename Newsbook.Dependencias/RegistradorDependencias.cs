@@ -22,20 +22,20 @@ namespace Newsbook.Dependencias
                 container.Options.DefaultScopedLifestyle = scope;                
             }
             //Repositorios
-            container.Register<IFeedUrlRepositorio, FeedUrlRepositorio>(Lifestyle.Scoped);
-            container.Register<ICategoriaRepositorio, CategoriaRepositorio>(Lifestyle.Scoped);
-            container.Register<ICategoriaDaNoticiaRepositorio, CategoriaDaNoticiaRepositorio>(Lifestyle.Scoped);
-            container.Register<INoticiaRepositorio, NoticiaRepositorio>(Lifestyle.Scoped);
-            container.Register<INoticiaDoFeedUrlRepositorio, NoticiaDoFeedUrlRepositorio>(Lifestyle.Scoped);
+            container.Register<IFeedUrlRepositorio, FeedUrlRepositorio>();
+            container.Register<ICategoriaRepositorio, CategoriaRepositorio>();
+            container.Register<ICategoriaDaNoticiaRepositorio, CategoriaDaNoticiaRepositorio>();
+            container.Register<INoticiaRepositorio, NoticiaRepositorio>();
+            container.Register<INoticiaDoFeedUrlRepositorio, NoticiaDoFeedUrlRepositorio>();
            
 
 
             //Serviços
-            container.Register<IFeedUrlServico, FeedUrlServico>(Lifestyle.Scoped);
-            container.Register<ICategoriaServico, CategoriaServico>(Lifestyle.Scoped);
-            container.Register<ICategoriaDaNoticiaServico, CategoriaDaNoticiaServico>(Lifestyle.Scoped);
-            container.Register<INoticiaServico, NoticiaServico>(Lifestyle.Scoped);
-            container.Register<INoticiaDoFeedUrlServico, NoticiaDoFeedUrlServico>(Lifestyle.Scoped);
+            container.Register<IFeedUrlServico, FeedUrlServico>();
+            container.Register<ICategoriaServico, CategoriaServico>();
+            container.Register<ICategoriaDaNoticiaServico, CategoriaDaNoticiaServico>();
+            container.Register<INoticiaServico, NoticiaServico>();
+            container.Register<INoticiaDoFeedUrlServico, NoticiaDoFeedUrlServico>();
             
 
             return container;
