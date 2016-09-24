@@ -1,6 +1,7 @@
 ﻿using Newsbook.Core.Modelo;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -37,13 +38,12 @@ namespace Newsbook.Infraestrutura.Dados.MYSQL.Contexto
            modelBuilder.Entity<CategoriaDaNoticia>().Ignore(x => x.Categoria);
            modelBuilder.Entity<CategoriaDaNoticia>().Ignore(x => x.Noticia);
           // modelBuilder.Entity<CategoriaDaNoticia>().Ignore(x => x.NomeTabela);
-           // FIM CategoriaDaNoticia 
+           // FIM CategoriaDaNoticia
 
            // FeedUrl
            modelBuilder.Entity<FeedUrl>().ToTable("tb_feedurl");
            modelBuilder.Entity<FeedUrl>().Ignore(x => x.Noticias);
-          // modelBuilder.Entity<FeedUrl>().Ignore(x => x.NomeTabela);
-           // FIM FeedUrl 
+           // FIM FeedUrl
 
            // Noticia
            modelBuilder.Entity<Noticia>().ToTable("tb_noticia");
@@ -57,9 +57,6 @@ namespace Newsbook.Infraestrutura.Dados.MYSQL.Contexto
            modelBuilder.Entity<NoticiaDoFeedUrl>().Ignore(x => x.Noticia);
            //modelBuilder.Entity<NoticiaDoFeedUrl>().Ignore(x => x.NomeTabela);
            // FIM NoticiaDoFeedUrl 
-
-            
-
        }
 
        public void commit()

@@ -9,5 +9,6 @@ namespace Newsbook.Core.Interface.Repositorio
 {
     public interface ICategoriaDaNoticiaRepositorio : IRepositorioBase<CategoriaDaNoticia>
     {
+        List<CategoriaDaNoticia> Listar(Noticia noticia);
     }
 }

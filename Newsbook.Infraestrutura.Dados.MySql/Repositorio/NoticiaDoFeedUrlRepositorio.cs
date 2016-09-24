@@ -13,9 +13,11 @@ namespace Newsbook.Infraestrutura.Dados.MYSQL.Repositorio
     public class NoticiaDoFeedUrlRepositorio : RepositorioBase<NoticiaDoFeedUrl>, INoticiaDoFeedUrlRepositorio
     {
         private readonly INoticiaRepositorio _noticiaRepositorio;
-        public NoticiaDoFeedUrlRepositorio(INoticiaRepositorio noticiaRepositorio)
+        private readonly ICategoriaDaNoticiaRepositorio _categoriaNoticiaRepositorio;
+        public NoticiaDoFeedUrlRepositorio(INoticiaRepositorio noticiaRepositorio, ICategoriaDaNoticiaRepositorio categoriaNoticiaRepositorio)
         {
             _noticiaRepositorio = noticiaRepositorio;
+            _categoriaNoticiaRepositorio = categoriaNoticiaRepositorio;
         }
 
         public List<NoticiaDoFeedUrl> Listar(FeedUrl feedUrl)
@@ -26,10 +28,9 @@ namespace Newsbook.Infraestrutura.Dados.MYSQL.Repositorio
                     (noticiaDoFeed, noticia) =>
                     {
                         noticiaDoFeed.Noticia = noticia;
+                        noticiaDoFeed.Noticia.Categorias = _categoriaNoticiaRepositorio.Listar(noticia);
                         return noticiaDoFeed;
                     }, feedUrl).ToList();
-
-
                 return lista;
             }
         }

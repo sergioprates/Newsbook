@@ -37,23 +37,26 @@ namespace Newsbook.Download
                 for (int i = 0; i < feeds.Count; i++)
                 {
                     log.Info(string.Format("{0} - Criando Xml Reader para a url {1}.", feeds[i].Titulo, feeds[i].Url));
-                    XmlReader xmlReader = XmlReader.Create(feeds[i].Url);
-                    log.Info(string.Format("{0} - Xml reader criado. Criando sindication feed.", feeds[i].Titulo));
-                    SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-                    log.Info(string.Format("{0} - Sindication feed criado. Tratando noticias para armazenar. Total: {1}", feeds[i].Titulo, feed.Items.Count()));
 
-                    foreach (SyndicationItem item in feed.Items)
+                    using (XmlReader xmlReader = XmlReader.Create(feeds[i].Url))
                     {
-                        try
+                        log.Info(string.Format("{0} - Xml reader criado. Criando sindication feed.", feeds[i].Titulo));
+                        SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+                        log.Info(string.Format("{0} - Sindication feed criado. Tratando noticias para armazenar. Total: {1}", feeds[i].Titulo, feed.Items.Count()));
+
+                        foreach (SyndicationItem item in feed.Items)
                         {
-                            var noticia = Tratamento.TratarNoticiaDoFeedUrl(item, feeds[i]);
-                            log.Info(string.Format("{0} - Noticia {1} tratada. Armazenando no BD.", feeds[i].Titulo, noticia.Noticia.Titulo));
-                            noticiaDoFeedUrlServico.Armazenar(noticia);
-                            log.Info(string.Format("{0} - Noticia {1} armazenada no BD com sucesso.", feeds[i].Titulo, noticia.Noticia.Titulo));
-                        }
-                        catch (Exception erro)
-                        {
-                            log.Error(string.Format("{0} - Ocorreu um problema no armazenamento da noticia.", feeds[i].Titulo), erro);
+                            try
+                            {
+                                var noticia = Tratamento.TratarNoticiaDoFeedUrl(item, feeds[i]);
+                                log.Info(string.Format("{0} - Noticia {1} tratada. Armazenando no BD.", feeds[i].Titulo, noticia.Noticia.Titulo));
+                                noticiaDoFeedUrlServico.Armazenar(noticia);
+                                log.Info(string.Format("{0} - Noticia {1} armazenada no BD com sucesso.", feeds[i].Titulo, noticia.Noticia.Titulo));
+                            }
+                            catch (Exception erro)
+                            {
+                                log.Error(string.Format("{0} - Ocorreu um problema no armazenamento da noticia.", feeds[i].Titulo), erro);
+                            }
                         }
                     }
                 }

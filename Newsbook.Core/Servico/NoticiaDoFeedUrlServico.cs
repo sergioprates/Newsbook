@@ -31,7 +31,7 @@ namespace Newsbook.Core.Servico
             _servicoCategoriaDaNoticia = servicoCategoriaDaNoticia;
         }
 
-        public void Armazenar(NoticiaDoFeedUrl noticiaDoFeed)
+        public bool Armazenar(NoticiaDoFeedUrl noticiaDoFeed)
         {
             if (noticiaDoFeed != null )
             {
@@ -66,7 +66,16 @@ namespace Newsbook.Core.Servico
                     noticiaDoFeed.NoticiaId = noticiaDoFeed.Noticia.Id;
 
                     noticiaDoFeed.Id = Salvar(noticiaDoFeed);
+                    return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 

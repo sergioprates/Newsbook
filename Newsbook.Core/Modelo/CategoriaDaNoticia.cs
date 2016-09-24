@@ -16,6 +16,7 @@ namespace Newsbook.Core.Modelo
         }
 
         public CategoriaDaNoticia(Categoria c, Noticia n)
+            :base()
         {
             Categoria = c;
             CategoriaId = c.Id;
