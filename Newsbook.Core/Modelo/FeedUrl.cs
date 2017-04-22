@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Modelo
 {
-    public class FeedUrl : ModeloBase
+    public class FeedUrl
     {
-        public string Titulo { get; set; }
+        public ObjectId _id { get; set; }
 
-        public string Descricao { get; set; }
+        public string Titulo { get; set; }
 
         public string Url { get; set; }
 
-        public List<NoticiaDoFeedUrl> Noticias { get; set; }
+        public bool Ativo { get; set; }
 
-        public static string NomeTabela
-        {
-            get { return "tb_feedurl"; }
-        }
+        public DateTime DataCadastro { get; set; }
+
+        public DateTime DataAlteracao { get; set; }
     }
 }

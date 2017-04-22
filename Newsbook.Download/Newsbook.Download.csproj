@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Newsbook.Download</RootNamespace>
     <AssemblyName>Newsbook.Download</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,16 +60,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Newsbook.Core\Newsbook.Core.csproj">
-      <Project>{77db442d-d3d0-449c-a7a1-22a47f716357}</Project>
+      <Project>{d3f4ad51-1bd4-4038-815a-8c5e5690c33c}</Project>
       <Name>Newsbook.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Newsbook.Dependencias\Newsbook.Dependencias.csproj">
       <Project>{650ab8a8-0a08-49c3-8b6e-08ea97133a5b}</Project>
       <Name>Newsbook.Dependencias</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Newsbook.Infraestrutura.Dados.MySql\Newsbook.Infraestrutura.Dados.MYSQL.csproj">
-      <Project>{056e24e2-604c-4834-bb49-0a36080cfc55}</Project>
-      <Name>Newsbook.Infraestrutura.Dados.MYSQL</Name>
+    <ProjectReference Include="..\Newsbook.FeedParserUrl\Newsbook.FeedParserUrl.csproj">
+      <Project>{3e262968-55fa-4ec8-9c94-209b3f5541a3}</Project>
+      <Name>Newsbook.FeedParserUrl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Newsbook.Util\Newsbook.Util.csproj">
       <Project>{a651bbc4-906d-4a4b-97fc-d327946fb87e}</Project>

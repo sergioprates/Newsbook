@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Newsbook.Core")]
+[assembly: AssemblyTitle("Newsbook.Infra.Dados.MongoDb")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Newsbook.Core")]
+[assembly: AssemblyProduct("Newsbook.Infra.Dados.MongoDb")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d3f4ad51-1bd4-4038-815a-8c5e5690c33c")]
+[assembly: Guid("6c8af17f-ef50-4d3b-bf04-500816fdbb50")]
 
 // Version information for an assembly consists of the following four values:
 //

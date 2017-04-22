@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Newsbook.Dependencias</RootNamespace>
     <AssemblyName>Newsbook.Dependencias</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,12 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Newsbook.Core\Newsbook.Core.csproj">
-      <Project>{77db442d-d3d0-449c-a7a1-22a47f716357}</Project>
+      <Project>{d3f4ad51-1bd4-4038-815a-8c5e5690c33c}</Project>
       <Name>Newsbook.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Newsbook.Infraestrutura.Dados.MySql\Newsbook.Infraestrutura.Dados.MYSQL.csproj">
-      <Project>{056e24e2-604c-4834-bb49-0a36080cfc55}</Project>
-      <Name>Newsbook.Infraestrutura.Dados.MYSQL</Name>
+    <ProjectReference Include="..\Newsbook.Infra.Dados.MongoDb\Newsbook.Infra.Dados.MongoDb.csproj">
+      <Project>{6c8af17f-ef50-4d3b-bf04-500816fdbb50}</Project>
+      <Name>Newsbook.Infra.Dados.MongoDb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
