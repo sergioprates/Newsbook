@@ -24,13 +24,26 @@ namespace Newsbook.Core.WebApi.Controllers
         [HttpGet]
         [Route("api/noticia")]
         [Authorize]
-        public Task<HttpResponseMessage> Get()
+        public Task<HttpResponseMessage> Get(int? limit = null, int? skip = null)
         {
             HttpResponseMessage response;
 
             try
             {
-                var itens = _servico.Listar().OrderByDescending(x => x.DataPublicacao).ToList();
+                List<Noticia> itens = null;
+
+                if (limit != null && skip != null)
+                {
+                    itens = _servico.Listar((int)limit, (int)skip).OrderByDescending(x => x.DataPublicacao).ToList();
+                }
+                else if (limit == null && skip != null)
+                {
+                    throw new InvalidOperationException("Não é possível acessar utilizando apenas o parametro skip.");
+                }
+                else
+                {
+                    itens = _servico.Listar().OrderByDescending(x => x.DataPublicacao).ToList();
+                }
 
                 var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
@@ -38,9 +51,13 @@ namespace Newsbook.Core.WebApi.Controllers
                     d = itensResourceModel
                 });
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 response = Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
 
             var tsc = new TaskCompletionSource<HttpResponseMessage>();
@@ -49,15 +66,15 @@ namespace Newsbook.Core.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/noticia/hoje")]
+        [Route("api/noticia/{feedUrlId}")]
         [Authorize]
-        public Task<HttpResponseMessage> GetOfToday()
+        public Task<HttpResponseMessage> GetByFeedUrl(string feedUrlId)
         {
             HttpResponseMessage response;
 
             try
             {
-                var itens = _servico.Listar(DateTime.Now).OrderByDescending(x=> x.DataPublicacao).ToList();
+                var itens = _servico.Listar(new FeedUrl() { _id = feedUrlId }).OrderByDescending(x => x.DataPublicacao).ToList();
 
                 var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
@@ -67,7 +84,7 @@ namespace Newsbook.Core.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
 
             var tsc = new TaskCompletionSource<HttpResponseMessage>();

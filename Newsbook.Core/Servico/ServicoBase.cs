@@ -9,55 +9,37 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Servico
 {
-    public class ServicoBase<TEntity> : IServicoBase<TEntity> where TEntity : class
+    public class ServicoBase<TEntity, TKey> : IServicoBase<TEntity, TKey> where TEntity : class
     {
-        private readonly IRepositorioBase<TEntity> _repositorio;
+        private readonly IRepositorioBase<TEntity, TKey> _repositorio;
 
-        public ServicoBase(IRepositorioBase<TEntity> repositorio)
+        public ServicoBase(IRepositorioBase<TEntity, TKey> repositorio)
         {
             _repositorio = repositorio;
-        }
-
-        public virtual long Salvar(TEntity obj)
-        {
-            var id = obj.GetType().GetRuntimeProperties().ToList().FirstOrDefault(x=> x.Name == "Id");
-            if (id != null && Convert.ToInt64(id.GetValue(obj)) != 0)
-            {
-                _repositorio.Alterar(obj);
-            }
-            else
-            {
-                obj = _repositorio.Inserir(obj);
-                id = obj.GetType().GetRuntimeProperties().ToList().FirstOrDefault(x => x.Name == "Id");
-                return Convert.ToInt64(id.GetValue(obj));
-            }
-            
-            return Convert.ToInt64(id.GetValue(obj));
         }
 
         public virtual TEntity Inserir(TEntity obj)
         {
            return _repositorio.Inserir(obj);
         }
-
-        public TEntity BuscarPorId(long id)
-        {
-            return _repositorio.BuscarPorId(id);
-        }
-
         public List<TEntity> Listar()
         {
             return _repositorio.Listar();
         }
 
-        public virtual void Alterar(TEntity obj)
+        public virtual void Alterar(TKey id, TEntity obj)
         {
-            _repositorio.Alterar(obj);
+            _repositorio.Alterar(id, obj);
         }
 
-        public void Deletar(TEntity obj)
+        public virtual void Deletar(TKey id)
         {
-            _repositorio.Deletar(obj);
+            _repositorio.Deletar(id);
+        }
+
+        public virtual TEntity BuscarPorId(TKey id)
+        {
+            return _repositorio.BuscarPorId(id);
         }
     }
 }

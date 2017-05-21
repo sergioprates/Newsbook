@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Interface.Repositorio
 {
-    public interface IFeedUrlRepositorio : IRepositorioBase<FeedUrl>
+    public interface IFeedUrlRepositorio : IRepositorioBase<FeedUrl, string>
     {
-        List<FeedUrl> ListarAtivos();
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Interface\Servico\INoticiaServico.cs" />
     <Compile Include="Interface\Servico\IServicoBase.cs" />
     <Compile Include="Modelo\FeedUrl.cs" />
+    <Compile Include="Modelo\ModeloBase.cs" />
     <Compile Include="Modelo\Noticia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servico\FeedUrlServico.cs" />

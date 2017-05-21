@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Servico
 {
-    public class FeedUrlServico : ServicoBase<FeedUrl>, IFeedUrlServico
+    public class FeedUrlServico : ServicoBase<FeedUrl, string>, IFeedUrlServico
     {
         private readonly IFeedUrlRepositorio _repositorioContexto;
 
@@ -18,10 +18,6 @@ namespace Newsbook.Core.Servico
         {
             _repositorioContexto = repositorio;
         }
-
-        public List<FeedUrl> ListarAtivos()
-        {
-            return _repositorioContexto.ListarAtivos();
-        }
+        
     }
 }

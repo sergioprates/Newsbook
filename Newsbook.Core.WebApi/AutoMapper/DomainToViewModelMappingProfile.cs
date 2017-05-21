@@ -18,12 +18,17 @@ namespace Newsbook.Core.WebApi.AutoMapper
 
         protected override void Configure()
         {
-            Mapper.CreateMap<FeedUrl, GetFeedUrl>();
-            Mapper.CreateMap<Noticia, GetNoticia>();
-
-           // Mapper.CreateMap<FormaDePagamentoViewModel, FormaDePagamento>().ForMember(c => c.BandeiraCartao, o => o.UseDestinationValue());
-            //Mapper.CreateMap<RegistrarFormaDePagamento, FormaDePagamento>().ForMember(c => c.BandeiraCartao, o => o.UseDestinationValue());
-            
+            Mapper.CreateMap<FeedUrl, GetFeedUrl>().AfterMap((src, dest) => dest.Id = src._id);
+            Mapper.CreateMap<Noticia, GetNoticia>().AfterMap((src, dest) =>
+            {
+                dest.Id = src._id;
+                dest.DataPublicacao = TimeZoneInfo.ConvertTime(src.DataPublicacao, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"));
+            });
         }
+
+            // Mapper.CreateMap<FormaDePagamentoViewModel, FormaDePagamento>().ForMember(c => c.BandeiraCartao, o => o.UseDestinationValue());
+            //Mapper.CreateMap<RegistrarFormaDePagamento, FormaDePagamento>().ForMember(c => c.BandeiraCartao, o => o.UseDestinationValue());
+
+        
     }
 }

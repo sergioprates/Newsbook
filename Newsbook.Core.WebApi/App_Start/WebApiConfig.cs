@@ -26,6 +26,8 @@ namespace Newsbook.Core.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            
+            
             FluentValidationModelValidatorProvider.Configure(config);
         }
     }

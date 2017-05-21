@@ -13,6 +13,11 @@
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/themes/flat-blue.css">
+    <style>
+        .card-title a:hover{
+            text-decoration:  underline;
+        }
+    </style>
 </head>
 <body class="flat-blue">
     <div id="paginaPrincipal" class="app-container">
@@ -32,7 +37,7 @@
                     </div>
                     <!--Será adicionado em futuras versões-->
                     <ul class="nav navbar-nav navbar-right" style="">
-                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs" />
                             <i class="fa fa-times icon"></i>
                         </button>
                         <li class="dropdown">
@@ -107,6 +112,7 @@
                             <a class="navbar-brand" href="#">
                                 <div class="icon fa fa-book"></div>
                                 <div class="title">Newsbook</div>
+                                &nbsp;<button v-on:click="criarNovoFeed()" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i>&nbsp; Novo</button>
                             </a>
                             <button type="button" class="navbar-expand-toggle pull-right visible-xs">
                                 <i class="fa fa-times icon"></i>
@@ -119,7 +125,7 @@
                                 </a>
                             </li>
                             <li v-for="feed in ListaFeedUrl">
-                                <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id)" onclick="ativarMenuItem(this)">
+                                <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id)" onclick="ativarMenuItem(this)" :title="feed.Titulo">
                                     <span class="icon fa fa-folder"></span><span class="title">{{feed.Titulo}}</span>
                                 </a>
                             </li>
@@ -131,62 +137,96 @@
             </div>
             <!-- Main Content -->
             <div class="container-fluid">
-                <div class="side-body padding-top">
-                    <div class="row  no-margin-bottom" style="display:flex; flex-wrap: wrap;">
-                        <div class="col-sm-6 col-md-6 col-xs-12 col-lg-4" v-for="noticia in ListaNoticia">
-                            <div id="listaNoticia" class="row" style="display:flex; flex-wrap: wrap;">
-                                <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
-                                    <div class="thumbnail no-margin-bottom">
-                                        <img v-bind:src="noticia.UrlFoto" class="img-responsive" style="width: 100%">
-                                        <div class="caption">
-                                            <h3 id="thumbnail-label">{{noticia.Titulo.trim() }}<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                                            <p style="height:50px;"> {{noticia.Descricao.trim() }}</p>
-                                            <p><strong> {{noticia.strDataPublicacao }}</strong></p>
-
-                                            <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
-                                                <a src="#" v-for="categoria in noticia.CategoriasDaNoticia" role="button" class="btn btn-success">{{categoria.Nome}}</a>
-
-                                            </div><p><a target="_blank" v-bind:href="noticia.Link" class="btn btn-primary btn-block" role="button">Ler mais</a></p>
-
-
+                <div id="listaNoticia" class="side-body padding-top">
+                    <div  class="row" v-for="noticia in ListaNoticia">
+                        <div class="col-md-12">
+                            <div class="card card-success">
+                                <div class="card-header" >
+                                    <div class="card-title">
+                                        <div class="title" style="font-size: 20px !important;font-family: Arial;"><a style=" color: #ffffff !important;" v-bind:href="noticia.Link" target="_blank">{{noticia.Titulo.trim() }}</a>
+                                       
                                         </div>
                                     </div>
+                                    <div class="pull-right card-action" style="padding-top: 15px">
+                                        <span class="label" style="font-size:12px;font-family: Verdana;">{{noticia.strDataPublicacao}}</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-indent" style="font-size:16px;font-family: Verdana;" v-html="noticia.Conteudo"></div>
+                                    <br />
+                                    <div class="text-indent" style="font-size:14px;font-family: Verdana;"></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div id="carregandoNoticias" class="row" style="display:none">
+                        <div class="col-md-12 text-center"><center>
+    <img src="img/loading.gif" style="width: 100px; height: 100px;" />
+</center>
+                        </div> 
                     </div>
                 </div>
             </div>
             <!-- /pagina principal -->
 
+            
+        </div>
+        <footer class="app-footer">
+            <div class="wrapper">
+                <span class="pull-right">1.0 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2017 Copyright Newsbook
+            </div>
+        </footer>
+        </div>
 
-            <!-- Modal Aguarde -->
-            <div class="modal bs-example-modal-sm" id="modalAguarde" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel">Aguarde</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div style="margin: 0 auto;">
-                                <img src="img/loading.gif" style="width: 100px; height: 100px;" />
+    <!-- Modal Novo Feed -->
+    <div class="modal" id="modalFeed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Preencha a url do seu feed ;)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="txtFeed">Url</label>
+                                <input id="txtFeed" v-model="feed" type="text" class="form-control" placeholder="http://feed.com.br">
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" v-on:click="Salvar()">Salvar</button>
+                </div>
             </div>
-            <!-- /Modal Aguarde -->
         </div>
-        <footer class="app-footer">
-            <div class="wrapper">
-                <span class="pull-right">1.0 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2016 Copyright Newsbook
+    </div>
+
+
+    <!-- Modal Aguarde -->
+    <div class="modal bs-example-modal-sm" id="modalAguarde" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Aguarde</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="margin: 0 auto;">
+                        <center>
+                            <img src="img/loading.gif" style="width: 100px; height: 100px;" />
+                        </center>
+                    </div>
+                </div>
             </div>
-        </footer>
         </div>
+    </div>
+    <!-- /Modal Aguarde -->
         
             <!-- Javascript Libs -->
-            <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-            <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
             <script type="text/javascript" src="lib/js/Chart.min.js"></script>
             <script type="text/javascript" src="lib/js/bootstrap-switch.min.js"></script>
             <script type="text/javascript" src="lib/js/jquery.matchHeight-min.js"></script>
@@ -203,6 +243,7 @@
             <script type="text/javascript" src="js/app.js"></script>
             <script type="text/javascript" src="js/index.js"></script>
             <script src="js/newsbook.js"></script>
+            <script src="js/newfeed.js"></script>
             <script src="scripts/index.js"></script>
            
 </body>

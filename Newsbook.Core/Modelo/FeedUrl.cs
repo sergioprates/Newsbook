@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Modelo
 {
-    public class FeedUrl
+    public class FeedUrl : ModeloBase<string>
     {
-        public ObjectId _id { get; set; }
-
+        public FeedUrl()
+        {
+            this._id = Guid.NewGuid().ToString();
+        }
         public string Titulo { get; set; }
 
         public string Url { get; set; }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Interface.Servico
 {
-    public interface IFeedUrlServico : IServicoBase<FeedUrl>
+    public interface IFeedUrlServico : IServicoBase<FeedUrl,string>
     {
-        List<FeedUrl> ListarAtivos();
     }
 }

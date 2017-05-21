@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Interface.Repositorio
 {
-    public interface IRepositorioBase<TEntity> : IDisposable
-        where TEntity : class
+    public interface IRepositorioBase<T, TKey> : IDisposable
     {
-        TEntity Inserir(TEntity obj);
-        TEntity BuscarPorId(long id);
-        List<TEntity> Listar();
-        void Alterar(TEntity obj);
-        void Deletar(TEntity obj);
+        void Alterar(TKey id, T obj);
+        T BuscarPorId(TKey id);
+        void Deletar(TKey id);
+        T Inserir(T obj);
+        List<T> Listar();
+        
+
     }
 }

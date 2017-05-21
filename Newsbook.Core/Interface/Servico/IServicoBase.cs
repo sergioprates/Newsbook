@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Interface.Servico
 {
-    public interface IServicoBase<TEntity> where TEntity : class
+    public interface IServicoBase<TEntity, TKey> where TEntity : class
     {
-        long Salvar(TEntity obj);
-
         TEntity Inserir(TEntity obj);
-        TEntity BuscarPorId(long id);
+        TEntity BuscarPorId(TKey id);
         List<TEntity> Listar();
         
-        void Alterar(TEntity obj);
-        void Deletar(TEntity obj);
+        void Alterar(TKey id, TEntity obj);
+        void Deletar(TKey id);
     }
 }

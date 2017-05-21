@@ -20,7 +20,7 @@ namespace Newsbook.Core.WebApi.Validator
             // Verificando se está sendo chamado o swagger, 
             // caso esteja a validação da requisição não é feita para retornar a variável errors[]
             if (request.RequestUri.ToString().ToUpper().IndexOf("SWAGGER", StringComparison.InvariantCultureIgnoreCase) == -1 
-                && response.StatusCode != System.Net.HttpStatusCode.InternalServerError)
+                )
             {
                 return BuildApiResponse(request, response);
             }
@@ -80,7 +80,7 @@ namespace Newsbook.Core.WebApi.Validator
             }
 
             //Step 5: Create a new response
-            var newResponse = request.CreateResponse(response.StatusCode, new ResponsePackage(content, modelStateErrors));
+            var newResponse = request.CreateResponse(response.StatusCode, new ResponsePackage(content, modelStateErrors, response.StatusCode));
 
             //Step 6: Add Back the Response Headers
             foreach (var header in response.Headers) //Add back the response headers

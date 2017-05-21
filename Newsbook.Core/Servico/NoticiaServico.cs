@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Newsbook.Core.Servico
 {
-    public class NoticiaServico : ServicoBase<Noticia>, INoticiaServico
+    public class NoticiaServico : ServicoBase<Noticia, string>, INoticiaServico
     {
          private readonly INoticiaRepositorio _repositorioContexto;
 
@@ -28,5 +28,20 @@ namespace Newsbook.Core.Servico
          {
              return _repositorioContexto.Listar(data);
          }
+
+        public List<Noticia> Listar(FeedUrl feedUrl)
+        {
+            return _repositorioContexto.Listar(feedUrl);
+        }
+
+        public List<Noticia> Listar(int limit)
+        {
+            return _repositorioContexto.Listar(limit);
+        }
+
+        public List<Noticia> Listar(int limit, int skip)
+        {
+            return _repositorioContexto.Listar(limit, skip);
+        }
     }
 }

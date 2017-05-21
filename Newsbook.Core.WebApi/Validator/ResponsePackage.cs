@@ -10,10 +10,15 @@ namespace Newsbook.Core.WebApi.Validator
         public List<string> Errors { get; set; }
 
         public object Result { get; set; }
-        public ResponsePackage(object result, List<string> errors)
+
+        public System.Net.HttpStatusCode StatusCode { get; set; }
+        public string StatusCodeDescription { get { return StatusCode.ToString(); } }
+
+        public ResponsePackage(object result, List<string> errors, System.Net.HttpStatusCode status)
         {
             Errors = errors;
             Result = result;
+            StatusCode = status;
         }
     }
 }

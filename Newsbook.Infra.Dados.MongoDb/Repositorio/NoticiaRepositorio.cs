@@ -5,49 +5,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newsbook.Core.Modelo;
+using Newsbook.Infra.Dados.MongoDb.Contexto;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace Newsbook.Infra.Dados.MongoDb.Repositorio
 {
-    public class NoticiaRepositorio : INoticiaRepositorio
+    public class NoticiaRepositorio : RepositorioBase<Noticia, string>, INoticiaRepositorio
     {
-        public void Alterar(Noticia obj)
+        public NoticiaRepositorio()
+            : base("noticia")
         {
-            throw new NotImplementedException();
+
         }
 
         public Noticia Buscar(string url)
         {
-            throw new NotImplementedException();
-        }
-
-        public Noticia BuscarPorId(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Deletar(Noticia obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Noticia Inserir(Noticia obj)
-        {
-            throw new NotImplementedException();
+            var query = FilterBuilder.Eq(x => x.Link, url);
+            return base.Buscar(query);
         }
 
         public List<Noticia> Listar(DateTime data)
         {
-            throw new NotImplementedException();
+            var query = FilterBuilder.Eq(x => x.DataPublicacao, data);
+            return base.Listar(query).OrderByDescending(x=> x.DataPublicacao).ToList();
         }
 
-        public List<Noticia> Listar()
+        public List<Noticia> Listar(FeedUrl feedUrl)
         {
-            throw new NotImplementedException();
+            var query = FilterBuilder.Eq(x => x.FeedUrl._id, feedUrl._id);
+            return base.Listar(query).OrderByDescending(x => x.DataPublicacao).ToList();
+        }
+
+        public List<Noticia> Listar(int limit)
+        {
+            var query = FilterBuilder.Empty;
+            var sort = SortBuilder.Descending(x => x.DataPublicacao);
+            return base.Listar(query, sort, limit);
+        }
+
+        public List<Noticia> Listar(int limit, int skip)
+        {
+            var query = FilterBuilder.Empty;
+            var sort = SortBuilder.Descending(x => x.DataPublicacao);
+            return base.Listar(query, sort, limit, skip);
         }
     }
 }

@@ -192,6 +192,10 @@
       <Project>{650ab8a8-0a08-49c3-8b6e-08ea97133a5b}</Project>
       <Name>Newsbook.Dependencias</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Newsbook.FeedParserUrl\Newsbook.FeedParserUrl.csproj">
+      <Project>{3E262968-55FA-4EC8-9C94-209B3F5541A3}</Project>
+      <Name>Newsbook.FeedParserUrl</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

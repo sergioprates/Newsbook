@@ -19,8 +19,8 @@ namespace Newsbook.Core.WebApi
     {
         protected void Application_Start()
         {
-           
 
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             AutoMapperConfig.RegisterMappings();

@@ -7,6 +7,6 @@ namespace Newsbook.Core.WebApi.ResourceModel
 {
     public abstract class ResourceModelBase
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
     }
 }
