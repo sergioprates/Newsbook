@@ -23,6 +23,7 @@ namespace Newsbook.Util.Dados
             noticia.FeedUrl = feed;
             if (item.Categories != null)
             {
+                noticia.Categorias = new List<string>();
                 foreach (var c in item.Categories)
                 {
                     noticia.Categorias.Add(c);
