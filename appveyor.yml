@@ -1,0 +1,6 @@
+configuration: Release
+before build:
+	-nuget retore
+build:
+	verbosity: minimal
+	publish_wap: true
