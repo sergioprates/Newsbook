@@ -15,8 +15,12 @@ namespace Newsbook.Core.Interface.Repositorio
 
         List<Noticia> Listar(FeedUrl feedUrl);
 
-        List<Noticia> Listar(int limit);
+        List<Noticia> Listar(FeedUrl feedUrl, int limit);
 
+        List<Noticia> Listar(FeedUrl feedUrl, int limit, int skip);
+
+
+        List<Noticia> Listar(int limit);
         List<Noticia> Listar(int limit, int skip);
     }
 }

@@ -8,7 +8,9 @@ function ocultarAguarde() {
 
 function mostrarErro(erro) {
     ocultarAguarde();
+    var resposta = JSON.parse(erro.body);
     console.log(erro);
+    alert(resposta.Result);
 }
 
 function ativarMenuItem(item) {

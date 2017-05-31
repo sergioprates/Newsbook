@@ -1233,3 +1233,8 @@ body.login-page {
     margin-top: 100px;
     margin-bottom: 20px; } }
 
+
+
+.card-title a:hover {
+    text-decoration: underline;
+}

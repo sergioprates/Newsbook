@@ -68,13 +68,26 @@ namespace Newsbook.Core.WebApi.Controllers
         [HttpGet]
         [Route("api/noticia/{feedUrlId}")]
         [Authorize]
-        public Task<HttpResponseMessage> GetByFeedUrl(string feedUrlId)
+        public Task<HttpResponseMessage> GetByFeedUrl(string feedUrlId, int? limit = null, int? skip = null)
         {
             HttpResponseMessage response;
 
             try
             {
-                var itens = _servico.Listar(new FeedUrl() { _id = feedUrlId }).OrderByDescending(x => x.DataPublicacao).ToList();
+                List<Noticia> itens = null;
+
+                if (limit != null && skip != null)
+                {
+                    itens = _servico.Listar(new FeedUrl() {_id = feedUrlId }, (int)limit, (int)skip).OrderByDescending(x => x.DataPublicacao).ToList();
+                }
+                else if (limit == null && skip != null)
+                {
+                    throw new InvalidOperationException("Não é possível acessar utilizando apenas o parametro skip.");
+                }
+                else
+                {
+                    itens = _servico.Listar(new FeedUrl() { _id = feedUrlId }).OrderByDescending(x => x.DataPublicacao).ToList();
+                }
 
                 var itensResourceModel = Mapper.Map<List<Noticia>, List<GetNoticia>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new

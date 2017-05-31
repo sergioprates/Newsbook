@@ -1,4 +1,4 @@
-﻿var _urlapi = 'http://localhost:54464/api/';
-var _urltoken = 'http://localhost:54464/token';
+﻿var _urlapi = 'http://apinewsbook.azurewebsites.net/api/';
+var _urltoken = 'http://apinewsbook.azurewebsites.net/token';
 
 var autenticacao = 'grant_type=password&username=Newsbook&password=Newsbook';

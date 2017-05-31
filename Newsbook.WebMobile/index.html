@@ -9,23 +9,18 @@
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="lib/css/animate.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="lib/css/animate.min.css">-->
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/themes/flat-blue.css">
-    <style>
-        .card-title a:hover{
-            text-decoration:  underline;
-        }
-    </style>
 </head>
 <body class="flat-blue">
-    <div id="paginaPrincipal" class="app-container">
+    <div id="paginaPrincipal" class="app-container expanded" style="display: none">
         <div class="row content-container">
             <nav class="navbar navbar-inverse navbar-fixed-top navbar-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-expand-toggle">
+                        <button type="button" class="navbar-expand-toggle fa-rotate-90">
                             <i class="fa fa-bars icon"></i>
                         </button>
                         <ol class="breadcrumb navbar-breadcrumb">
@@ -36,7 +31,7 @@
                         </button>
                     </div>
                     <!--Será adicionado em futuras versões-->
-                    <ul class="nav navbar-nav navbar-right" style="">
+                    <!--<ul class="nav navbar-nav navbar-right" style="">
                         <button type="button" class="navbar-right-expand-toggle pull-right visible-xs" />
                             <i class="fa fa-times icon"></i>
                         </button>
@@ -101,7 +96,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul>-->
                     <!--/Será adicionado em futuras versões-->
                 </div>
             </nav>
@@ -120,12 +115,12 @@
                         </div>
                         <ul class="nav navbar-nav">
                             <li class="active">
-                                <a href="#" v-on:click=" listarNoticia()" onclick="ativarMenuItem(this); mostrarAguarde()">
+                                <a href="#" v-on:click="listarTodos()" onclick="ativarMenuItem(this); mostrarAguarde()">
                                     <span class="icon fa fa-home"></span><span class="title">Todos</span>
                                 </a>
                             </li>
                             <li v-for="feed in ListaFeedUrl">
-                                <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id)" onclick="ativarMenuItem(this)" :title="feed.Titulo">
+                                <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id, true)" onclick="ativarMenuItem(this)" :title="feed.Titulo">
                                     <span class="icon fa fa-folder"></span><span class="title">{{feed.Titulo}}</span>
                                 </a>
                             </li>
@@ -151,7 +146,7 @@
                                         <span class="label" style="font-size:12px;font-family: Verdana;">{{noticia.strDataPublicacao}}</span>
                                     </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" v-if="noticia.Conteudo != ''">
                                     <div class="text-indent" style="font-size:16px;font-family: Verdana;" v-html="noticia.Conteudo"></div>
                                     <br />
                                     <div class="text-indent" style="font-size:14px;font-family: Verdana;"></div>
@@ -161,8 +156,8 @@
                     </div>
                     <div id="carregandoNoticias" class="row" style="display:none">
                         <div class="col-md-12 text-center"><center>
-    <img src="img/loading.gif" style="width: 100px; height: 100px;" />
-</center>
+                            <img src="img/loading.gif" style="width: 100px; height: 100px;" />
+                        </center>
                         </div> 
                     </div>
                 </div>
@@ -227,12 +222,12 @@
             <!-- Javascript Libs -->
     <script type="text/javascript" src="lib/js/jquery.min.js"></script>
     <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="lib/js/Chart.min.js"></script>
+            <!--<script type="text/javascript" src="lib/js/Chart.min.js"></script>-->
             <script type="text/javascript" src="lib/js/bootstrap-switch.min.js"></script>
-            <script type="text/javascript" src="lib/js/jquery.matchHeight-min.js"></script>
-            <script type="text/javascript" src="lib/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="lib/js/dataTables.bootstrap.min.js"></script>
-            <script type="text/javascript" src="lib/js/select2.full.min.js"></script>
+            <!--<script type="text/javascript" src="lib/js/jquery.matchHeight-min.js"></script>-->
+            <!--<script type="text/javascript" src="lib/js/jquery.dataTables.min.js"></script>-->
+            <!--<script type="text/javascript" src="lib/js/dataTables.bootstrap.min.js"></script>-->
+            <!--<script type="text/javascript" src="lib/js/select2.full.min.js"></script>-->
             <script type="text/javascript" src="lib/js/ace/ace.js"></script>
             <script type="text/javascript" src="lib/js/ace/mode-html.js"></script>
             <script type="text/javascript" src="lib/js/ace/theme-github.js"></script>

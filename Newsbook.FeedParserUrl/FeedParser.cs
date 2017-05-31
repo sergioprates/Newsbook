@@ -48,6 +48,13 @@ namespace Newsbook.FeedParserUrl
                     feed = ParseRdf(doc);
                 }
 
+                if (feed.Items.Count == 0)
+                {
+                    feed = ParseRssWithoutChannel(doc);
+                }
+
+
+                
             }
 
 
@@ -173,6 +180,46 @@ namespace Newsbook.FeedParserUrl
                                   Content = item.Elements().First(i => i.Name.LocalName == "description").Value,
                                   Link = item.Elements().First(i => i.Name.LocalName == "link").Value,
                                   PublishDate = ParseDate(item.Elements().First(i => i.Name.LocalName == "pubDate").Value),
+                                  Title = item.Elements().First(i => i.Name.LocalName == "title").Value,
+                                  Categories = item.Elements().Where(i => i.Name.LocalName == "category").Select(x => x.Value.ToString()).ToArray()
+                              };
+
+                feedReturn.Items = entries.ToList();
+                feedReturn.Type = FeedType.RSS;
+                return feedReturn;
+            }
+            catch
+            {
+                return new Feed();
+            }
+        }
+
+        /// <summary>
+        /// Parses an RSS feed and returns a <see cref="IList&amp;lt;Item&amp;gt;"/>.
+        /// </summary>
+        private static Feed ParseRssWithoutChannel(XDocument doc)
+        {
+            try
+            {
+                // RSS/Channel/item
+
+                var feed = from f in doc.Elements().Where(i => i.Name.LocalName == "feed")
+                           select new Feed
+                           {
+                               //Description = f.Elements().First(i => i.Name.LocalName == "description").Value,
+                               Title = f.Elements().First(i => i.Name.LocalName == "title").Value,
+                           };
+
+
+                var feedReturn = feed.FirstOrDefault();
+
+                var entries = from item in doc.Root.Elements().Where(i => i.Name.LocalName == "entry")
+                              select new Item
+                              {
+                                  FeedType = FeedType.RSS,
+                                  Content = item.Elements().First(i => i.Name.LocalName == "content").Value,
+                                  Link = item.Elements().First(i => i.Name.LocalName == "link").Value,
+                                  PublishDate = ParseDate(item.Elements().First(i => i.Name.LocalName == "published").Value),
                                   Title = item.Elements().First(i => i.Name.LocalName == "title").Value,
                                   Categories = item.Elements().Where(i => i.Name.LocalName == "category").Select(x => x.Value.ToString()).ToArray()
                               };

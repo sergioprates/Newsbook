@@ -50,5 +50,19 @@ namespace Newsbook.Infra.Dados.MongoDb.Repositorio
             var sort = SortBuilder.Descending(x => x.DataPublicacao);
             return base.Listar(query, sort, limit, skip);
         }
+
+        public List<Noticia> Listar(FeedUrl feedUrl, int limit)
+        {
+            var query = FilterBuilder.Eq(x=> x.FeedUrl._id, feedUrl._id);
+            var sort = SortBuilder.Descending(x => x.DataPublicacao);
+            return base.Listar(query, sort, limit);
+        }
+
+        public List<Noticia> Listar(FeedUrl feedUrl, int limit, int skip)
+        {
+            var query = FilterBuilder.Eq(x => x.FeedUrl._id, feedUrl._id);
+            var sort = SortBuilder.Descending(x => x.DataPublicacao);
+            return base.Listar(query, sort, limit, skip);
+        }
     }
 }

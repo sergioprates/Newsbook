@@ -12,7 +12,9 @@ var index = new Vue({
         ListaFeedUrl: [],
         ListaNoticia: [],
         Token: '',
-        Limit: 10
+        Limit: 10,
+        Request: false,
+        FeedSelecionado: ''
     },
 
     // Anything within the ready function will run when the application loads
@@ -29,12 +31,12 @@ var index = new Vue({
     methods: {
         listarFeedUrlAtivo: function (token) {
             //this.$set('events', events);
-            this.$http.get(_urlapi + 'feedurl', { headers: { 'Authorization': 'Bearer ' + this.Token}}).then(function (res) {
+            this.$http.get(_urlapi + 'feedurl', { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
                 // success callback
                 var resposta = JSON.parse(res.body);
 
                 this.$set('ListaFeedUrl', resposta.Result.d);
-            }, function (error)  {
+            }, function (error) {
                 // error callback
                 mostrarErro(error);
             });
@@ -51,23 +53,44 @@ var index = new Vue({
 
                 ocultarAguarde();
                 $('#carregandoNoticias').hide();
+                index.Request = false;
                 this.$nextTick(function () {
                     $('img', $('#listaNoticia')).addClass('img-responsive');
                 });
             }, function (error) {
+                index.Request = false;
                 // error callback
                 mostrarErro(error);
             });
         },
-        listarNoticiaPorFeedUrl: function (id) {
+        listarTodos: function () {
+            this.ListaNoticia = [];
+            this.FeedSelecionado = '';
             mostrarAguarde();
-            this.$http.get(_urlapi + 'noticia/' + id, { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
+            this.listarNoticia();
+        },
+        listarNoticiaPorFeedUrl: function (id, novo) {
+            mostrarAguarde();
+
+            if (novo) {
+                this.ListaNoticia = [];
+            }
+
+            index.FeedSelecionado = id;
+
+            this.$http.get(_urlapi + 'noticia/' + id + '?limit=' + this.Limit + '&skip=' + this.ListaNoticia.length, { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
                 // success callback
                 var resposta = JSON.parse(res.body);
 
-                this.$set('ListaNoticia', resposta.Result.d);
-                ocultarAguarde();
+                var resposta = JSON.parse(res.body);
 
+                for (var i = 0; i < resposta.Result.d.length; i++) {
+                    index.ListaNoticia.push(resposta.Result.d[i]);
+                }
+
+                ocultarAguarde();
+                $('#carregandoNoticias').hide();
+                index.Request = false;
                 this.$nextTick(function () {
                     $('img', $('#listaNoticia')).addClass('img-responsive');
                 });
@@ -77,13 +100,13 @@ var index = new Vue({
             });
 
             return false;
-        }, 
+        },
         criarNovoFeed: function () {
             formFeed.Init(function (feed) {
                 mostrarAguarde();
                 this.$http.post(_urlapi + 'feedurl/criar?feed=' + encodeURIComponent(feed), {}, { headers: { 'Authorization': 'Bearer ' + index.Token } }).then(function (res) {
                     // success callback
-                    
+
                     index.listarFeedUrlAtivo(index.Token);
                     index.listarNoticia(index.Token);
                     formFeed.Destroy();
@@ -100,14 +123,25 @@ var index = new Vue({
 
 
 $(document).ready(function () {
+
+    $('#paginaPrincipal').fadeIn();
     var win = $(window);
 
     // Each time the user scrolls
     win.scroll(function () {
         // End of the document reached?
-        if ($(document).height() - win.height() == win.scrollTop()) {
+        if ($(document).height() - win.height() == win.scrollTop() && index.Request == false) {
+            index.Request = true;
             $('#carregandoNoticias').show();
-            index.listarNoticia();
+
+            if (index.FeedSelecionado == '') {
+                index.listarNoticia();
+            }
+            else
+            {
+                index.listarNoticiaPorFeedUrl(index.FeedSelecionado, false);
+            }
+            
         }
     });
 });

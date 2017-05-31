@@ -18,5 +18,10 @@ namespace Newsbook.Core.Interface.Servico
         List<Noticia> Listar(int limit);
 
         List<Noticia> Listar(int limit, int skip);
+
+
+        List<Noticia> Listar(FeedUrl feedUrl, int limit);
+
+        List<Noticia> Listar(FeedUrl feedUrl, int limit, int skip);
     }
 }

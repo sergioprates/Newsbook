@@ -34,6 +34,16 @@ namespace Newsbook.Core.Servico
             return _repositorioContexto.Listar(feedUrl);
         }
 
+        public List<Noticia> Listar(FeedUrl feedUrl, int limit)
+        {
+            return _repositorioContexto.Listar(feedUrl, limit);
+        }
+
+        public List<Noticia> Listar(FeedUrl feedUrl, int limit, int skip)
+        {
+            return _repositorioContexto.Listar(feedUrl, limit, skip);
+        }
+
         public List<Noticia> Listar(int limit)
         {
             return _repositorioContexto.Listar(limit);
