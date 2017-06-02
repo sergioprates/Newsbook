@@ -218,7 +218,7 @@ namespace Newsbook.FeedParserUrl
                               {
                                   FeedType = FeedType.RSS,
                                   Content = item.Elements().First(i => i.Name.LocalName == "content").Value,
-                                  Link = item.Elements().First(i => i.Name.LocalName == "link").Value,
+                                  Link = item.Elements().First(i => i.Name.LocalName == "link").Attribute("href").Value,
                                   PublishDate = ParseDate(item.Elements().First(i => i.Name.LocalName == "published").Value),
                                   Title = item.Elements().First(i => i.Name.LocalName == "title").Value,
                                   Categories = item.Elements().Where(i => i.Name.LocalName == "category").Select(x => x.Value.ToString()).ToArray()
