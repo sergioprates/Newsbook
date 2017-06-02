@@ -70,11 +70,18 @@ var index = new Vue({
             this.listarNoticia();
         },
         listarNoticiaPorFeedUrl: function (id, novo) {
-            mostrarAguarde();
-
+           
             if (novo) {
                 this.ListaNoticia = [];
+                mostrarAguarde();
             }
+
+            if (detectmob() == true) {
+                $(".app-container").toggleClass("expanded", false);
+                $(".navbar-expand-toggle").toggleClass("fa-rotate-90", false);
+            }
+
+           
 
             index.FeedSelecionado = id;
 
@@ -120,9 +127,30 @@ var index = new Vue({
 });
 
 
+function detectmob() {
+    if (window.innerWidth <= 800 && window.innerHeight <= 600) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
 
 $(document).ready(function () {
+
+    if (detectmob() == true) {
+            $(".app-container").toggleClass("expanded", false);
+            $(".navbar-expand-toggle").toggleClass("fa-rotate-90", false);
+    }
+
+    $(window).resize(function () {
+        if (detectmob() == true) {
+            $(".app-container").toggleClass("expanded", false);
+            $(".navbar-expand-toggle").toggleClass("fa-rotate-90", false);
+        }
+    });
 
     $('#paginaPrincipal').fadeIn();
     var win = $(window);
@@ -137,11 +165,36 @@ $(document).ready(function () {
             if (index.FeedSelecionado == '') {
                 index.listarNoticia();
             }
-            else
-            {
+            else {
                 index.listarNoticiaPorFeedUrl(index.FeedSelecionado, false);
             }
-            
+
         }
     });
+});
+
+$(function () {
+
+    var $contextMenu = $("#contextMenu");
+
+    $("body").on("contextmenu", ".itemfeed", function (e) {
+
+        //$('small', $contextMenu).html($(e.target).text());
+        $contextMenu.css({
+            display: "block",
+            left: e.pageX,
+            top: e.pageY
+        });
+        return false;
+    });
+
+    $contextMenu.on("click", "a", function () {
+        $contextMenu.hide();
+    });
+
+    $('html').on("click", function () {
+        $contextMenu.hide();
+    });
+
+
 });

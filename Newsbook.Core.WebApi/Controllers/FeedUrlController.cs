@@ -4,6 +4,7 @@ using Newsbook.Core.Modelo;
 using Newsbook.Core.WebApi.ResourceModel.FeedUrl;
 using Newsbook.Core.WebApi.Validator;
 using Newsbook.FeedParserUrl;
+using Newsbook.Util.Dados;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,7 @@ namespace Newsbook.Core.WebApi.Controllers
 
             try
             {
+                
                 Feed item = FeedParser.Parse(feed);
 
                 FeedUrl f = new FeedUrl() { Ativo = true, Titulo = item.Title, Url=feed };
@@ -70,14 +72,8 @@ namespace Newsbook.Core.WebApi.Controllers
 
                 for (int i = 0; i < item.Items.Count; i++)
                 {
-                    Noticia n = new Noticia();
-                    n.Ativo = true;
-                    n.Conteudo = item.Items[i].Content;
-                    n.DataPublicacao = item.Items[i].PublishDate;
-                    n.FeedUrl = f;
-                    n.Link = item.Items[i].Link;
-                    n.Titulo = item.Items[i].Title;
-                    n.Categorias = item.Items[i].Categories.ToList();
+                    
+                    Noticia n = Tratamento.TratarNoticiaDoFeedUrl(item.Items[i], f);
                    n = _noticiaServico.Inserir(n);
                 }
 

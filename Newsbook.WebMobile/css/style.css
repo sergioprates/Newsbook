@@ -1238,3 +1238,7 @@ body.login-page {
 .card-title a:hover {
     text-decoration: underline;
 }
+#contextMenu {
+    position: absolute;
+    display: none;
+}

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Newsbook</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1">
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
@@ -26,9 +26,9 @@
                         <ol class="breadcrumb navbar-breadcrumb">
                             <li class="active">Noticias</li>
                         </ol>
-                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                        <!--<button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                             <i class="fa fa-th icon"></i>
-                        </button>
+                        </button>-->
                     </div>
                     <!--Será adicionado em futuras versões-->
                     <!--<ul class="nav navbar-nav navbar-right" style="">
@@ -119,7 +119,7 @@
                                     <span class="icon fa fa-home"></span><span class="title">Todos</span>
                                 </a>
                             </li>
-                            <li v-for="feed in ListaFeedUrl">
+                            <li class="itemfeed" v-for="feed in ListaFeedUrl">
                                 <a href="#" v-on:click="listarNoticiaPorFeedUrl(feed.Id, true)" onclick="ativarMenuItem(this)" :title="feed.Titulo">
                                     <span class="icon fa fa-folder"></span><span class="title">{{feed.Titulo}}</span>
                                 </a>
@@ -218,6 +218,21 @@
         </div>
     </div>
     <!-- /Modal Aguarde -->
+
+    <!--MENU DE CONTEXTO-->
+    <div id="contextMenu" class="dropdown clearfix" style="z-index: 500000">
+      
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <!--<li><center> <small></small></center></li>
+            <li class="divider"></li>-->
+            <li><a tabindex="-1" href="#">Atualizar</a></li>
+            <li><a tabindex="-1" href="#">Editar</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="#">Excluir</a></li>
+        </ul>
+    </div>
+
+    <!-- /MENU DE CONTEXTO-->
         
             <!-- Javascript Libs -->
     <script type="text/javascript" src="lib/js/jquery.min.js"></script>

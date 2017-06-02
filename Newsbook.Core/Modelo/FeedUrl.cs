@@ -12,6 +12,8 @@ namespace Newsbook.Core.Modelo
         public FeedUrl()
         {
             this._id = Guid.NewGuid().ToString();
+            this.DataCadastro = DateTime.UtcNow;
+            this.DataAlteracao = DateTime.UtcNow;
         }
         public string Titulo { get; set; }
 

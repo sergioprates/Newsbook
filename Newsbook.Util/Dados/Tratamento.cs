@@ -19,14 +19,18 @@ namespace Newsbook.Util.Dados
             noticia.Titulo = item.Title;
             noticia.Conteudo = item.Content;
             noticia.Link = item.Link;
-            noticia.DataPublicacao = item.PublishDate;
+            noticia.DataPublicacao = item.PublishDate.ToUniversalTime();
             noticia.FeedUrl = feed;
             if (item.Categories != null)
             {
                 noticia.Categorias = new List<string>();
                 foreach (var c in item.Categories)
                 {
-                    noticia.Categorias.Add(c);
+                    if (string.IsNullOrWhiteSpace(c) == false)
+                    {
+                        noticia.Categorias.Add(c);
+                    }
+                    
                 }
             }
             
