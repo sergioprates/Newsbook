@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,20 +21,64 @@ namespace Newsbook.FeedParserUrl
         /// <returns></returns>
         public static Feed Parse(string url)
         {
-            XDocument doc = XDocument.Load(url);
             Feed feed = new Feed();
 
+            try
+            {
+                XDocument doc = XDocument.Load(url);
+               feed = ParsePeloTipo(doc);
 
+
+            }
+            catch (WebException erro)
+            {
+                if (erro.Status == WebExceptionStatus.ProtocolError)
+                {
+                    string xml = PegarXmlPorRequest(url);
+                    XDocument doc = XDocument.Parse(xml);
+                    feed = ParsePeloTipo(doc);
+                }
+            }
+
+           
+            if (feed.Items.Count == 0)
+            {
+                throw new NotSupportedException(string.Format("{0} não suportado.", url));
+            }
+
+            return feed;
+        }
+
+        private static string PegarXmlPorRequest(string url)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
+            var response = (HttpWebResponse)request.GetResponse();
+            string responseString;
+            using (var stream = response.GetResponseStream())
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    responseString = reader.ReadToEnd();
+                }
+            }
+
+            return responseString;
+        }
+
+        private static Feed ParsePeloTipo(XDocument doc)
+        {
+            Feed feed = new Feed();
             if (doc.ToString().IndexOf("syndication", StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 try
                 {
                     feed = ParseAtomSyndication(doc);
                 }
-                catch 
+                catch
                 {
                 }
-              
+
             }
             else
             {
@@ -52,15 +98,6 @@ namespace Newsbook.FeedParserUrl
                 {
                     feed = ParseRssWithoutChannel(doc);
                 }
-
-
-                
-            }
-
-
-            if (feed.Items.Count == 0)
-            {
-                throw new NotSupportedException(string.Format("{0} não suportado.", url));
             }
 
             return feed;
