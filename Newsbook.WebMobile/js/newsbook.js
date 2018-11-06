@@ -21,7 +21,7 @@ function ativarMenuItem(item) {
 var components = new Vue({
     data: {
         Token: ''
-    }, 
+    },
     methods: {
         buscarToken: function (callback) {
             mostrarAguarde();
@@ -40,10 +40,8 @@ var components = new Vue({
                 });
             }
             else {
-                this.listarFeedUrlAtivo();
-                this.listarNoticia();
+                callback(this.Token);
             }
-
         }
     }
 });
