@@ -18,7 +18,6 @@ namespace Newsbook.Core.WebApi.Controllers
 {
     public class FeedUrlController : ApiController
     {
-
         private readonly IFeedUrlServico _servico;
         private readonly INoticiaServico _noticiaServico;
 
@@ -30,14 +29,14 @@ namespace Newsbook.Core.WebApi.Controllers
 
         [HttpGet]
         [Route("api/feedurl")]
-       [Authorize]
+        [Authorize]
         public Task<HttpResponseMessage> Get()
         {
             HttpResponseMessage response;
 
             try
             {
-                var itens = _servico.Listar().OrderBy(x=> x.Titulo).ToList();
+                var itens = _servico.Listar().OrderBy(x => x.Titulo).ToList();
 
                 var itensResourceModel = Mapper.Map<List<FeedUrl>, IEnumerable<GetFeedUrl>>(itens);
                 response = Request.CreateResponse(HttpStatusCode.OK, new
@@ -64,20 +63,18 @@ namespace Newsbook.Core.WebApi.Controllers
 
             try
             {
-                
                 Feed item = FeedParser.Parse(feed);
 
-                FeedUrl f = new FeedUrl() { Ativo = true, Titulo = item.Title, Url=feed };
+                FeedUrl f = new FeedUrl() { Ativo = true, Titulo = item.Title, Url = feed };
+
                 f = _servico.Inserir(f);
 
                 for (int i = 0; i < item.Items.Count; i++)
                 {
-                    
-                    Noticia n = Tratamento.TratarNoticiaDoFeedUrl(item.Items[i], f);
-                   n = _noticiaServico.Inserir(n);
-                }
 
-                
+                    Noticia n = Tratamento.TratarNoticiaDoFeedUrl(item.Items[i], f);
+                    n = _noticiaServico.Inserir(n);
+                }
 
                 response = Request.CreateResponse(HttpStatusCode.OK, "OK");
             }
@@ -94,8 +91,5 @@ namespace Newsbook.Core.WebApi.Controllers
             tsc.SetResult(response);
             return tsc.Task;
         }
-
-
-
     }
 }

@@ -11,7 +11,6 @@ namespace Newsbook.Util.Dados
 {
     public class Tratamento
     {
-
         public static Noticia TratarNoticiaDoFeedUrl(Item item, FeedUrl feed)
         {
             Noticia noticia = new Noticia();
@@ -21,6 +20,7 @@ namespace Newsbook.Util.Dados
             noticia.Link = item.Link;
             noticia.DataPublicacao = item.PublishDate.ToUniversalTime();
             noticia.FeedUrl = feed;
+
             if (item.Categories != null)
             {
                 noticia.Categorias = new List<string>();
@@ -29,8 +29,7 @@ namespace Newsbook.Util.Dados
                     if (string.IsNullOrWhiteSpace(c) == false)
                     {
                         noticia.Categorias.Add(c);
-                    }
-                    
+                    }                    
                 }
             }
             

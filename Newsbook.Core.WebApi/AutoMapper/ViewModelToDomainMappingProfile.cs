@@ -20,7 +20,6 @@ namespace Newsbook.Core.WebApi.AutoMapper
         {
             Mapper.CreateMap<GetFeedUrl, FeedUrl>();
             Mapper.CreateMap<GetNoticia, Noticia>();
-          
         }
     }
 }

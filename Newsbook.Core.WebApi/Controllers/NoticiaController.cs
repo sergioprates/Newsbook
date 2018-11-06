@@ -78,7 +78,7 @@ namespace Newsbook.Core.WebApi.Controllers
 
                 if (limit != null && skip != null)
                 {
-                    itens = _servico.Listar(new FeedUrl() {_id = feedUrlId }, (int)limit, (int)skip).OrderByDescending(x => x.DataPublicacao).ToList();
+                    itens = _servico.Listar(new FeedUrl() { _id = feedUrlId }, (int)limit, (int)skip).OrderByDescending(x => x.DataPublicacao).ToList();
                 }
                 else if (limit == null && skip != null)
                 {

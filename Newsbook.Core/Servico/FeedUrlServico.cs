@@ -17,7 +17,6 @@ namespace Newsbook.Core.Servico
             : base(repositorio)
         {
             _repositorioContexto = repositorio;
-        }
-        
+        }        
     }
 }

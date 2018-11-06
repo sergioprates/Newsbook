@@ -12,9 +12,6 @@ namespace Newsbook.Infra.Dados.MongoDb.Repositorio
     {
         public FeedUrlRepositorio()
             : base("feedurl")
-        {
-
-        }
-        
+        {}
     }
 }

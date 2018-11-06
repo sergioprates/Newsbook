@@ -25,8 +25,6 @@ namespace Newsbook.Core.WebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            
             
             FluentValidationModelValidatorProvider.Configure(config);
         }

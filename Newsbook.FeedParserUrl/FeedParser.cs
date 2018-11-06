@@ -26,9 +26,7 @@ namespace Newsbook.FeedParserUrl
             try
             {
                 XDocument doc = XDocument.Load(url);
-               feed = ParsePeloTipo(doc);
-
-
+                feed = ParsePeloTipo(doc);
             }
             catch (WebException erro)
             {
@@ -40,7 +38,6 @@ namespace Newsbook.FeedParserUrl
                 }
             }
 
-           
             if (feed.Items.Count == 0)
             {
                 throw new NotSupportedException(string.Format("{0} não suportado.", url));
@@ -71,14 +68,7 @@ namespace Newsbook.FeedParserUrl
             Feed feed = new Feed();
             if (doc.ToString().IndexOf("syndication", StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
-                try
-                {
-                    feed = ParseAtomSyndication(doc);
-                }
-                catch
-                {
-                }
-
+                feed = ParseAtomSyndication(doc);
             }
             else
             {
@@ -132,10 +122,10 @@ namespace Newsbook.FeedParserUrl
                                   Title = item.Elements().First(i => i.Name.LocalName == "title").Value,
                                   Categories = item.Elements().Where(i => i.Name.LocalName == "category").Select(x => x.ToString()).ToArray()
                               };
+
                 feedReturn.Items = entries.ToList();
                 feedReturn.Type = FeedType.Atom;
                 return feedReturn;
-
             }
             catch
             {
@@ -149,7 +139,9 @@ namespace Newsbook.FeedParserUrl
             {
                 SyndicationFeed syndication = SyndicationFeed.Load(doc.CreateReader());
                 Feed feedReturn = new Feed();
+
                 var itens = syndication.Items.ToList();
+
                 feedReturn.Title = syndication.Title.Text;
                 feedReturn.Description = syndication.Description.Text;
                 for (int i = 0; i < itens.Count; i++)
@@ -161,14 +153,11 @@ namespace Newsbook.FeedParserUrl
 
                     List<string> c = new List<string>();
                     for (int x = 0; x < itens[i].Categories.Count; x++)
-                    {                        
+                    {
                         c.Add(itens[i].Categories[x].Name);
                     }
 
                     news.Categories = c.ToArray();
-
-                    
-                   
 
                     string link = "#";
                     if (itens[i].Links != null && itens[i].Links.Count > 0)
@@ -180,10 +169,9 @@ namespace Newsbook.FeedParserUrl
                     news.Content = itens[i].Summary.Text;
                     feedReturn.Items.Add(news);
                 }
-                
+
                 feedReturn.Type = FeedType.Atom;
                 return feedReturn;
-
             }
             catch
             {
@@ -286,7 +274,6 @@ namespace Newsbook.FeedParserUrl
                                Description = f.Elements().First(i => i.Name.LocalName == "description").Value,
                                Title = f.Elements().First(i => i.Name.LocalName == "title").Value,
                            };
-
 
                 var feedReturn = feed.FirstOrDefault();
 

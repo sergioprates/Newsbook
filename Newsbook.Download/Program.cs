@@ -26,10 +26,8 @@ namespace Newsbook.Download
             XmlConfigurator.Configure();
             log = LogManager.GetLogger("FileAppender");
 
-
-
-
             log.Info("Processo de download das noticias iniciado com sucesso. Listando FeedUrl para consultar noticias.");
+
             try
             {
                 IFeedUrlRepositorio feedRepositorio = RegistradorDependencias.Instanciar(typeof(IFeedUrlRepositorio)) as IFeedUrlRepositorio;
@@ -37,6 +35,7 @@ namespace Newsbook.Download
                 INoticiaRepositorio noticiaRepositorio = RegistradorDependencias.Instanciar(typeof(INoticiaRepositorio)) as INoticiaRepositorio;
 
                 List<FeedUrl> feeds = feedRepositorio.Listar();
+
                 log.Info(string.Format("Feed url listados: {0}. Iniciando download das noticias atualizadas.", feeds.Count));
 
                 for (int i = 0; i < feeds.Count; i++)
@@ -80,8 +79,6 @@ namespace Newsbook.Download
                     {
                         log.Error(string.Format("{0} - Ocorreu um problema não identificado no parseamento do feed.", feeds[i].Url), erro);
                     }
-
-
                 }
 
                 log.Info("Processo de download das noticias finalizado com sucesso.");

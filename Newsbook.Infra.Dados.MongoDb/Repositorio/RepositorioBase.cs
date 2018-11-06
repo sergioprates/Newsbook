@@ -27,13 +27,11 @@ namespace Newsbook.Infra.Dados.MongoDb.Repositorio
         }
 
         public void Dispose()
-        {
-        }
+        {}
 
         public T Inserir(T obj)
         {
             Repository.Collection.InsertOne(obj);
-
             return obj;
         }
 

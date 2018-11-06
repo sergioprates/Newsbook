@@ -15,9 +15,7 @@ namespace Newsbook.Infra.Dados.MongoDb.Repositorio
     {
         public NoticiaRepositorio()
             : base("noticia")
-        {
-
-        }
+        {}
 
         public Noticia Buscar(string url)
         {

@@ -40,7 +40,6 @@ var index = new Vue({
                 // error callback
                 mostrarErro(error);
             });
-
         },
         listarNoticia: function (token) {
             this.$http.get(_urlapi + 'noticia?limit=' + this.Limit + '&skip=' + this.ListaNoticia.length, { headers: { 'Authorization': 'Bearer ' + this.Token } }).then(function (res) {
@@ -80,8 +79,6 @@ var index = new Vue({
                 $(".app-container").toggleClass("expanded", false);
                 $(".navbar-expand-toggle").toggleClass("fa-rotate-90", false);
             }
-
-           
 
             index.FeedSelecionado = id;
 
@@ -168,7 +165,6 @@ $(document).ready(function () {
             else {
                 index.listarNoticiaPorFeedUrl(index.FeedSelecionado, false);
             }
-
         }
     });
 });
@@ -195,6 +191,4 @@ $(function () {
     $('html').on("click", function () {
         $contextMenu.hide();
     });
-
-
 });
